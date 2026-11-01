@@ -78,3 +78,15 @@ test("retrieval-only has retrieval metrics and no answer metrics", () => {
   assert.equal(a.costPerQuestion, null);
   assert.equal(a.byCategory.fact.accuracy, null);
 });
+
+test("a failed request counts as incorrect but not as a retrieval miss", () => {
+  const a = aggregate(
+    [r({ id: "a", firstGoldRank: 1, factsInContext: true, score: score(true) }), r({ id: "b", retrieved: [], factsInContext: false, score: score(false), error: "api: x" })],
+    false,
+  );
+  assert.equal(a.answerAccuracy, 1 / 2);
+  assert.equal(a.errors, 1);
+  assert.equal(a.recallAtK, 1);
+  assert.equal(a.mrr, 1);
+  assert.equal(a.contextFactRecall, 1);
+});

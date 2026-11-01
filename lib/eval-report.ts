@@ -81,6 +81,8 @@ export function percentile(values: number[], p: number): number | null {
 export function aggregate(rs: QuestionResult[], retrievalOnly: boolean): Aggregate {
   const answerable = rs.filter((r) => r.category !== "unanswerable");
   const unanswerable = rs.filter((r) => r.category === "unanswerable");
+  // A request that failed has no retrieval record, so it is left out of the retrieval measures (it still counts as incorrect).
+  const retrieved = answerable.filter((r) => !r.error);
   const correct = (list: QuestionResult[]) => list.filter((r) => r.score?.correct).length;
   const ranked = (list: QuestionResult[], max: number) => list.filter((r) => r.firstGoldRank !== null && r.firstGoldRank <= max).length;
   const times = rs.flatMap((r) => (r.totalMs === null ? [] : [r.totalMs]));
@@ -101,10 +103,10 @@ export function aggregate(rs: QuestionResult[], retrievalOnly: boolean): Aggrega
     answerAccuracy: retrievalOnly ? null : ratio(correct(rs), rs.length),
     citationAccuracy: retrievalOnly ? null : ratio(answerable.filter((r) => r.score?.citationHit).length, answerable.length),
     abstentionAccuracy: retrievalOnly ? null : ratio(correct(unanswerable), unanswerable.length),
-    recallAtK: ratio(ranked(answerable, Infinity), answerable.length),
-    recallAt8: ratio(ranked(answerable, 8), answerable.length),
-    contextFactRecall: ratio(answerable.filter((r) => r.factsInContext).length, answerable.length),
-    mrr: ratio(answerable.reduce((s, r) => s + (r.firstGoldRank ? 1 / r.firstGoldRank : 0), 0), answerable.length),
+    recallAtK: ratio(ranked(retrieved, Infinity), retrieved.length),
+    recallAt8: ratio(ranked(retrieved, 8), retrieved.length),
+    contextFactRecall: ratio(retrieved.filter((r) => r.factsInContext).length, retrieved.length),
+    mrr: ratio(retrieved.reduce((s, r) => s + (r.firstGoldRank ? 1 / r.firstGoldRank : 0), 0), retrieved.length),
     byCategory: cats,
     p50Ms: percentile(times, 50),
     p95Ms: percentile(times, 95),

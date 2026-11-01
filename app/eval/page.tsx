@@ -23,8 +23,10 @@ const SPLITS: [string, string][] = [
 async function load(): Promise<Report | null> {
   try {
     return JSON.parse(await readFile(path.join(process.cwd(), "eval", "results", "latest.json"), "utf8"));
-  } catch {
-    return null;
+  } catch (err) {
+    // Only a missing file means "no run yet"; a damaged file should fail the build, not hide.
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw err;
   }
 }
 
@@ -146,7 +148,7 @@ function Question({ r }: { r: QuestionResult }) {
         <dt>Retrieved pages</dt>
         <dd>
           {r.retrieved.length === 0 ? (
-            "Nothing was retrieved."
+            r.error ? "Not recorded: the request failed." : "Nothing was retrieved."
           ) : (
             <>
               {[...retrieved].map(([doc, pages]) => (
@@ -188,6 +190,7 @@ export default async function EvalPage() {
     [`Recall@${meta.k}`, (a) => pct(a.recallAtK)],
     ["MRR", (a) => (a.mrr == null ? "n/a" : a.mrr.toFixed(3))],
     ["Abstention accuracy", (a) => pct(a.abstentionAccuracy)],
+    ["Failed requests", (a) => String(a.errors)],
     ["Latency p50 / p95", (a) => `${secs(a.p50Ms)} / ${secs(a.p95Ms)}`],
     ["Cost per question", (a) => usd(a.costPerQuestion, 4)],
   ];
@@ -216,7 +219,7 @@ export default async function EvalPage() {
             </div>
           )}
           <div>
-            <dt>All questions</dt>
+            <dt>{meta.split === "all" ? "All questions" : "Dev questions"}</dt>
             <dd>{pct(all.answerAccuracy)}</dd>
             <dd className="ev-count">
               {correct("overall")} of {size("overall")} correct
@@ -232,7 +235,7 @@ export default async function EvalPage() {
 
       <section aria-labelledby="ev-metrics">
         <h2 id="ev-metrics">All measures</h2>
-        <div className="ev-scroll">
+        <div className="ev-scroll" role="region" aria-label="Measures by split" tabIndex={0}>
           <table className="ev-table">
             <caption className="visually-hidden">Measures by question split</caption>
             <thead>
@@ -261,7 +264,7 @@ export default async function EvalPage() {
 
       <section aria-labelledby="ev-cats">
         <h2 id="ev-cats">Accuracy by category</h2>
-        <div className="ev-scroll">
+        <div className="ev-scroll" role="region" aria-label="Accuracy by category" tabIndex={0}>
           <table className="ev-table">
             <caption className="visually-hidden">Answer accuracy by question category and split</caption>
             <thead>
