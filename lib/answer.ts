@@ -40,7 +40,7 @@ export type AnswerEvent =
       notFound: boolean;
       retrievedChunks: RetrievedChunk[];
     }
-  | { type: "error"; code: "rate_limit" | "connection" | "api" | "internal"; message: string };
+  | { type: "error"; code: "invalid_key" | "no_credit" | "rate_limit" | "connection" | "api" | "internal"; message: string };
 
 // Only the fields mapCitations reads, so a hand-built fixture and the SDK's content blocks both fit.
 export type ContentBlockLike = {
@@ -104,17 +104,26 @@ export async function* textEvents(events: AsyncIterable<StreamEventLike>): Async
   }
 }
 
-let client: Anthropic | undefined;
-function getClient(): Anthropic {
-  // Reads ANTHROPIC_API_KEY. Created on first use so importing this module never needs the key.
-  // timeout x (1 + maxRetries) stays under the route's 120 s maxDuration, so a stall ends in a clean error.
-  return (client ??= new Anthropic({ timeout: 55_000, maxRetries: 1 }));
+// One client per question, built from the caller's key and nothing else. An empty key is refused here because the
+// SDK treats a missing apiKey as "read ANTHROPIC_API_KEY", which would quietly bill the server's account.
+// A key passed in code makes the SDK ignore ANTHROPIC_AUTH_TOKEN too; the base URL is pinned so the key cannot be
+// sent anywhere but Anthropic. timeout x (1 + maxRetries) stays under the route's 120 s maxDuration.
+export function createClient(apiKey: string): Anthropic {
+  if (typeof apiKey !== "string" || apiKey === "") throw new Error("An API key is required");
+  return new Anthropic({ apiKey, baseURL: "https://api.anthropic.com", timeout: 55_000, maxRetries: 1 });
 }
 
-function describeError(err: unknown): Extract<AnswerEvent, { type: "error" }> {
-  // Most specific first. Only fixed messages go to the client: no error text, no request details.
+// Most specific first. Only fixed messages go to the client and to the log: never error text or request details,
+// because an error object can carry the request, and so the visitor's key.
+export function describeError(err: unknown): Extract<AnswerEvent, { type: "error" }> {
+  if (err instanceof Anthropic.AuthenticationError) {
+    return { type: "error", code: "invalid_key", message: "Anthropic rejected this API key." };
+  }
+  if (err instanceof Anthropic.BadRequestError && err.status === 400 && /credit balance/i.test(err.message)) {
+    return { type: "error", code: "no_credit", message: "This API key's account has no credit." };
+  }
   if (err instanceof Anthropic.RateLimitError) {
-    return { type: "error", code: "rate_limit", message: "The model is busy right now. Try again in a moment." };
+    return { type: "error", code: "rate_limit", message: "This API key is rate limited by Anthropic. Try again shortly." };
   }
   if (err instanceof Anthropic.APIConnectionError) {
     return { type: "error", code: "connection", message: "Could not reach the model service. Try again." };
@@ -123,7 +132,7 @@ function describeError(err: unknown): Extract<AnswerEvent, { type: "error" }> {
     console.error("model api error", err.status, err.type);
     return { type: "error", code: "api", message: "The model service returned an error. Try again." };
   }
-  console.error("answer failed", err);
+  console.error("answer failed", err instanceof Error ? err.name : typeof err);
   return { type: "error", code: "internal", message: "Something went wrong while answering. Try again." };
 }
 
@@ -143,8 +152,9 @@ function emptyDone(extra: Partial<Extract<AnswerEvent, { type: "done" }>>): Extr
 
 export async function* answerQuestion(
   question: string,
-  opts: { owner?: string | null; documentIds?: string[]; signal?: AbortSignal },
+  opts: { apiKey: string; owner?: string | null; documentIds?: string[]; signal?: AbortSignal },
 ): AsyncGenerator<AnswerEvent> {
+  const client = createClient(opts.apiKey); // before retrieval: no key, no work
   let stream: ReturnType<Anthropic["beta"]["messages"]["stream"]> | undefined;
   try {
     const chunks = await retrieve(question, { owner: opts.owner, documentIds: opts.documentIds });
@@ -154,7 +164,7 @@ export async function* answerQuestion(
       return;
     }
 
-    stream = getClient().beta.messages.stream(
+    stream = client.beta.messages.stream(
       {
       model: MODEL,
       betas: ["server-side-fallback-2026-07-01"],

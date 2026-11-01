@@ -58,3 +58,16 @@ test("a request over its own limit does not spend the global budget, and the key
   assert.equal(rows.find((r) => r.key === `${name}:global`).count, 1);
   assert.ok(rows.every((r) => !r.key.includes("203.0.113.7")));
 });
+
+test("without a global rule only the per-IP limit applies and no global counter is written", { skip }, async () => {
+  const name = `${PREFIX}:noglobal`;
+  const limits = { name, noun: "things", ip: { limit: 2, windowMs: WINDOW } };
+  const req = new Request("http://x", { headers: { "x-forwarded-for": "203.0.113.8" } });
+  assert.equal(await limitRequest(req, limits), null);
+  assert.equal(await limitRequest(req, limits), null);
+  assert.equal((await limitRequest(req, limits))?.status, 429);
+  // Another visitor is not affected by the first one's allowance.
+  assert.equal(await limitRequest(new Request("http://x", { headers: { "x-forwarded-for": "203.0.113.9" } }), limits), null);
+  const { rows } = await getPool().query("SELECT key FROM rate_limits WHERE key LIKE $1", [`${name}:%`]);
+  assert.ok(rows.every((r) => r.key.startsWith(`${name}:ip:`)));
+});

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { getPool } from "./db.ts";
 
 export type Rule = { limit: number; windowMs: number };
-export type Limits = { name: string; noun: string; ip: Rule; global: Rule };
+export type Limits = { name: string; noun: string; ip: Rule; global?: Rule };
 
 export const HOUR_MS = 60 * 60 * 1000;
 export const DAY_MS = 24 * HOUR_MS;
@@ -40,11 +40,12 @@ function tooMany(message: string, retryAfterSeconds: number) {
 }
 
 // Returns a 429 response when the request is over a limit, otherwise null. The per-IP counter is checked first so a
-// rejected request never spends the shared daily budget. Keys hold a hash of the IP, never the address.
+// rejected request never spends the shared daily budget (when there is one). Keys hold a hash of the IP, never the address.
 export async function limitRequest(req: Request, l: Limits): Promise<Response | null> {
   const ip = createHash("sha256").update(clientIp(req)).digest("hex");
   const mine = await consume(`${l.name}:ip:${ip}`, l.ip.limit, l.ip.windowMs);
   if (!mine.allowed) return tooMany(`You have used your allowance of ${l.ip.limit} ${l.noun}.`, mine.retryAfterSeconds);
+  if (!l.global) return null;
   const all = await consume(`${l.name}:global`, l.global.limit, l.global.windowMs);
   if (!all.allowed) return tooMany(`The demo has reached its limit of ${l.global.limit} ${l.noun} for all visitors.`, all.retryAfterSeconds);
   return null;

@@ -1,6 +1,8 @@
-import { test, after } from "node:test";
+import { test, after, mock } from "node:test";
 import assert from "node:assert/strict";
-import { answerQuestion, mapCitations, MODEL, NOT_IN_DOCUMENTS_SENTENCE, splitSentences, textEvents, type AnswerEvent, type StreamEventLike, type ContentBlockLike } from "./answer.ts";
+import util from "node:util";
+import Anthropic from "@anthropic-ai/sdk";
+import { answerQuestion, createClient, describeError, mapCitations, MODEL, NOT_IN_DOCUMENTS_SENTENCE, splitSentences, textEvents, type AnswerEvent, type StreamEventLike, type ContentBlockLike } from "./answer.ts";
 import { getPool } from "./db.ts";
 import type { RetrievedChunk } from "./retrieve.ts";
 
@@ -130,7 +132,7 @@ test("real answer: every citation quote occurs in its chunk and the page matches
 
   let streamed = "";
   let done: Extract<AnswerEvent, { type: "done" }> | undefined;
-  for await (const e of answerQuestion("What is the catastrophic protection out-of-pocket maximum under Standard Option?", { owner: null })) {
+  for await (const e of answerQuestion("What is the catastrophic protection out-of-pocket maximum under Standard Option?", { apiKey: process.env.ANTHROPIC_API_KEY!, owner: null })) {
     assert.notEqual(e.type, "error", e.type === "error" ? e.message : "");
     if (e.type === "text") streamed += e.text;
     if (e.type === "done") done = e;
@@ -155,18 +157,74 @@ test("real answer: every citation quote occurs in its chunk and the page matches
 });
 
 test("no retrieved chunks returns the not-found sentence without calling the API", { skip: process.env.DATABASE_URL ? false : "DATABASE_URL not set", timeout: 120_000 }, async () => {
-  const saved = process.env.ANTHROPIC_API_KEY;
-  process.env.ANTHROPIC_API_KEY = "sk-ant-test-not-used";
+  // A scope with no documents retrieves nothing.
+  const events = [];
+  for await (const e of answerQuestion("anything", { apiKey: "sk-ant-test-not-used", owner: null, documentIds: ["00000000-0000-4000-8000-000000000000"] })) events.push(e);
+  assert.deepEqual(events.map((e) => e.type), ["text", "done"]);
+  const done = events[1];
+  assert.ok(done.type === "done" && done.notFound && done.citations.length === 0 && done.model === null);
+  assert.equal(done.blocks[0].text, NOT_IN_DOCUMENTS_SENTENCE);
+});
+
+const KEY = "sk-ant-fake0000000000000000000";
+
+test("the client uses the caller's key, never the environment's, and an empty key is refused", () => {
+  const saved = { key: process.env.ANTHROPIC_API_KEY, token: process.env.ANTHROPIC_AUTH_TOKEN };
+  process.env.ANTHROPIC_API_KEY = "sk-ant-server-key-must-not-be-used";
+  process.env.ANTHROPIC_AUTH_TOKEN = "server-token-must-not-be-used";
   try {
-    // A scope with no documents retrieves nothing.
-    const events = [];
-    for await (const e of answerQuestion("anything", { owner: null, documentIds: ["00000000-0000-4000-8000-000000000000"] })) events.push(e);
-    assert.deepEqual(events.map((e) => e.type), ["text", "done"]);
-    const done = events[1];
-    assert.ok(done.type === "done" && done.notFound && done.citations.length === 0 && done.model === null);
-    assert.equal(done.blocks[0].text, NOT_IN_DOCUMENTS_SENTENCE);
+    const client = createClient(KEY);
+    assert.equal(client.apiKey, KEY);
+    assert.equal(client.authToken, null);
+    assert.equal(client.baseURL, "https://api.anthropic.com");
+    assert.throws(() => createClient(""), /API key is required/);
+    assert.throws(() => createClient(undefined as unknown as string), /API key is required/);
+  } finally {
+    if (saved.key === undefined) delete process.env.ANTHROPIC_API_KEY;
+    else process.env.ANTHROPIC_API_KEY = saved.key;
+    if (saved.token === undefined) delete process.env.ANTHROPIC_AUTH_TOKEN;
+    else process.env.ANTHROPIC_AUTH_TOKEN = saved.token;
+  }
+});
+
+test("answerQuestion with an empty key fails before retrieval, whatever the environment holds", async () => {
+  const saved = process.env.ANTHROPIC_API_KEY;
+  process.env.ANTHROPIC_API_KEY = "sk-ant-server-key-must-not-be-used";
+  try {
+    await assert.rejects(answerQuestion("anything", { apiKey: "", owner: null }).next(), /API key is required/);
   } finally {
     if (saved === undefined) delete process.env.ANTHROPIC_API_KEY;
     else process.env.ANTHROPIC_API_KEY = saved;
+  }
+});
+
+// Errors that carry the key in their text, headers or body: the client event and the log must stay free of it.
+const apiError = (status: number, message: string) =>
+  Anthropic.APIError.generate(status, { type: "error", error: { type: "x_error", message: `${message} (x-api-key ${KEY})` } }, `${status} ${message} ${KEY}`, new Headers({ "x-api-key": KEY }));
+
+test("API errors map to fixed messages, and neither the event nor the log contains the key", () => {
+  const logged: string[] = [];
+  const spy = mock.method(console, "error", (...args: unknown[]) => void logged.push(args.map((a) => (typeof a === "string" ? a : util.inspect(a, { depth: 5 }))).join(" ")));
+  try {
+    const cases: [unknown, string, string][] = [
+      [apiError(401, "invalid x-api-key"), "invalid_key", "Anthropic rejected this API key."],
+      [apiError(400, "Your credit balance is too low to access the Anthropic API."), "no_credit", "This API key's account has no credit."],
+      [apiError(400, "messages: something else is wrong"), "api", "The model service returned an error. Try again."],
+      [apiError(429, "rate limited"), "rate_limit", "This API key is rate limited by Anthropic. Try again shortly."],
+      [apiError(403, "forbidden"), "api", "The model service returned an error. Try again."],
+      [apiError(500, "overloaded"), "api", "The model service returned an error. Try again."],
+      [new Anthropic.APIConnectionError({ message: `connect failed ${KEY}`, cause: new Error(KEY) }), "connection", "Could not reach the model service. Try again."],
+      [new Error(`something broke with ${KEY}`), "internal", "Something went wrong while answering. Try again."],
+      [`thrown string ${KEY}`, "internal", "Something went wrong while answering. Try again."],
+    ];
+    for (const [err, code, message] of cases) {
+      const event = describeError(err);
+      assert.deepEqual([event.code, event.message], [code, message]);
+      assert.ok(!JSON.stringify(event).includes(KEY));
+    }
+    assert.ok(logged.length > 0, "the api and internal paths log something");
+    assert.ok(!logged.join("\n").includes(KEY), "the key reached the log");
+  } finally {
+    spy.mock.restore();
   }
 });

@@ -1,15 +1,16 @@
 import { answerQuestion, type AnswerEvent } from "../../../lib/answer.ts";
 import { parseAskBody } from "../../../lib/ask-request.ts";
 import { getOwner } from "../../../lib/owner.ts";
-import { DAY_MS, HOUR_MS, limitRequest, type Limits } from "../../../lib/rate-limit.ts";
+import { readApiKey } from "../../../lib/api-key.ts";
+import { HOUR_MS, limitRequest, type Limits } from "../../../lib/rate-limit.ts";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const MAX_BODY = 32 * 1024;
 
-// The global cap is the hard limit on API spend: about 6 dollars a day at the measured cost per question.
-const LIMITS: Limits = { name: "ask", noun: "questions", ip: { limit: 20, windowMs: HOUR_MS }, global: { limit: 200, windowMs: DAY_MS } };
+// Visitors pay for their own questions, so there is no shared daily cap. The per-IP limit protects the database and function time.
+const LIMITS: Limits = { name: "ask", noun: "questions", ip: { limit: 20, windowMs: HOUR_MS } };
 
 function fail(status: number, error: string) {
   return Response.json({ error }, { status });
@@ -23,6 +24,10 @@ function toClient(e: AnswerEvent) {
 }
 
 export async function POST(req: Request) {
+  // The visitor's own key, from the header and nowhere else (never process.env). Checked first: no key, no work.
+  const key = readApiKey(req.headers);
+  if ("error" in key) return fail(401, key.error);
+
   // Same reasoning as /api/documents: a chunked body has no length to check up front.
   const length = req.headers.get("content-length");
   if (length === null || !/^\d+$/.test(length)) return fail(411, "Content-Length required");
@@ -44,7 +49,7 @@ export async function POST(req: Request) {
   // Aborted when the client goes away (the request signal) or stops reading (cancel below).
   const abort = new AbortController();
   req.signal.addEventListener("abort", () => abort.abort());
-  const events = answerQuestion(parsed.question, { owner: await getOwner(), documentIds: parsed.documentIds, signal: abort.signal });
+  const events = answerQuestion(parsed.question, { apiKey: key.apiKey, owner: await getOwner(), documentIds: parsed.documentIds, signal: abort.signal });
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({
     async pull(controller) {
