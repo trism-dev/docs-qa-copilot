@@ -1,11 +1,15 @@
 import { answerQuestion, type AnswerEvent } from "../../../lib/answer.ts";
 import { parseAskBody } from "../../../lib/ask-request.ts";
 import { getOwner } from "../../../lib/owner.ts";
+import { DAY_MS, HOUR_MS, limitRequest, type Limits } from "../../../lib/rate-limit.ts";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const MAX_BODY = 32 * 1024;
+
+// The global cap is the hard limit on API spend: about 6 dollars a day at the measured cost per question.
+const LIMITS: Limits = { name: "ask", noun: "questions", ip: { limit: 20, windowMs: HOUR_MS }, global: { limit: 200, windowMs: DAY_MS } };
 
 function fail(status: number, error: string) {
   return Response.json({ error }, { status });
@@ -32,6 +36,10 @@ export async function POST(req: Request) {
   }
   const parsed = parseAskBody(json);
   if ("error" in parsed) return fail(400, parsed.error);
+
+  // Before retrieval, which embeds, and before any model call.
+  const limited = await limitRequest(req, LIMITS);
+  if (limited) return limited;
 
   // Aborted when the client goes away (the request signal) or stops reading (cancel below).
   const abort = new AbortController();
