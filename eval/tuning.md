@@ -69,3 +69,28 @@ Hybrid search (both arms), the heading and document-name prefixes, and the chunk
 ## Spend
 
 Dev runs: baseline $0.56, step b $0.58, k = 12 $0.75, k = 16 $0.92, frozen-config rerun $0.58. Total $3.39 before the final run.
+
+## Final run
+
+Run once, after the code was frozen and committed (`12ca59a`): `npm run ingest:corpus -- --force`, then `npm run eval -- --split all --final --label final --out eval/results/latest.json`. The results file is `eval/results/latest.json`. No code or question was changed after it, so there is no `first-final.json`. No request failed.
+
+| | Questions | Answer accuracy | Citation accuracy | recall@8 | MRR | Abstention | Latency p50 / p95 | Cost per question |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| All | 50 | 92.0% (46/50) | 95.2% | 97.6% | 0.777 | 100.0% | 4.5 s / 7.8 s | $0.0281 |
+| Dev | 20 | 90.0% (18/20) | 100.0% | 100.0% | 0.951 | 100.0% | 4.5 s / 7.2 s | $0.0290 |
+| Held-out | 30 | 93.3% (28/30) | 92.0% | 96.0% | 0.658 | 100.0% | 3.8 s / 7.8 s | $0.0274 |
+
+Spend: this run $1.40; with the earlier dev runs $4.79 of the $10 limit.
+
+Dev scored 90% here, after 100% and 95% on the same code earlier: that spread is the run-to-run noise on 20 questions. Held-out scoring slightly above dev is not evidence that held-out is easier or the tuning generalises; with 30 questions a two-question swing is 6.7 points.
+
+### Held-out failures (read after the run, not acted on)
+
+| Question | Class | What happened |
+| --- | --- | --- |
+| q21 Medigap plans that cover Part B excess charges | extraction (table) problem, shown as a wrong abstention | The chart page (80) ranked first, but the chart's columns are lost in extraction, so the model said "Not found in these documents." It is the same cause as dev q42. |
+| q32 most I'd pay for covered drugs under the plan's Medicare prescription drug program | retrieval miss, with an ambiguous reading | No chunk from the brochure (gold pages 19 and 112, the $2,100 FEP Medicare drug program maximum) was retrieved. All 8 came from Medicare & You, and the model answered with the Part D cap from there ($2,400), citing it. The wording "the plan's" points to the brochure, so the question is fair, but the app does not use that cue. |
+
+Two dev failures in the same run: q25 (retrieval miss at chunk level, as in the tuning log) and q42 (the same table problem as q21).
+
+Over the whole set, three of the four failures come from tables whose columns are lost in extraction or from a chunk that retrieval did not return, which are the two things tuning did not fix. Held-out retrieval is weaker than dev: MRR 0.658 against 0.951 and recall@8 96.0%, with a first gold-page chunk at rank 3 or lower for several questions. The answers were mostly right despite that because the model was given 8 chunks and the right page was usually among them.
