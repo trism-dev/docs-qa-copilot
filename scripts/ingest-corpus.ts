@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { getPool } from "../lib/db.ts";
 import { ingestDocument } from "../lib/ingest.ts";
 import { extractPages } from "../lib/pdf.ts";
@@ -19,12 +19,21 @@ const dir = new URL("../corpus/", import.meta.url);
 
 async function load(e: Entry): Promise<Buffer> {
   const file = new URL(e.file, dir);
-  if (!existsSync(file)) {
-    const res = await fetch(e.url, { headers: { "User-Agent": UA } });
-    if (!res.ok) throw new Error(`download ${e.url}: ${res.status}`);
-    await writeFile(file, Buffer.from(await res.arrayBuffer()));
+  const isPdf = (b: Buffer) => b.subarray(0, 5).toString("latin1") === "%PDF-";
+  if (existsSync(file)) {
+    const cached = await readFile(file);
+    if (isPdf(cached)) return cached;
+    console.log(`${e.file}: cached file is not a PDF, downloading again`);
   }
-  return readFile(file);
+  const res = await fetch(e.url, { headers: { "User-Agent": UA } });
+  if (!res.ok) throw new Error(`download ${e.url}: ${res.status}`);
+  const body = Buffer.from(await res.arrayBuffer());
+  if (!isPdf(body)) throw new Error(`download ${e.url}: response is not a PDF`);
+  // Write then rename so an interrupted download never leaves a half file in place.
+  const tmp = new URL(`${e.file}.tmp`, dir);
+  await writeFile(tmp, body);
+  await rename(tmp, file);
+  return body;
 }
 
 async function ingest(e: Entry): Promise<number> {
