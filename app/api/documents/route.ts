@@ -2,11 +2,13 @@ import { getPool } from "../../../lib/db.ts";
 import { ingestDocument } from "../../../lib/ingest.ts";
 import { getOrCreateOwner, getOwner } from "../../../lib/owner.ts";
 import { MAX_BYTES, PdfError, type PdfErrorCode } from "../../../lib/pdf.ts";
+import { purgeExpired } from "../../../lib/purge.ts";
+import { DAY_MS, limitRequest, type Limits } from "../../../lib/rate-limit.ts";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
 
-const DAY_MS = 24 * 60 * 60 * 1000;
+const LIMITS: Limits = { name: "documents", noun: "uploads", ip: { limit: 5, windowMs: DAY_MS }, global: { limit: 50, windowMs: DAY_MS } };
 // Multipart framing adds a little on top of the file itself.
 const MAX_BODY = MAX_BYTES + 64 * 1024;
 
@@ -33,6 +35,12 @@ export async function POST(req: Request) {
   const length = req.headers.get("content-length");
   if (length === null || !/^\d+$/.test(length)) return fail(411, "Content-Length required", "length_required");
   if (Number(length) > MAX_BODY) return fail(413, "File too large", "too_large");
+
+  // Before the body is read and before any embedding.
+  const limited = await limitRequest(req, LIMITS);
+  if (limited) return limited;
+  // Expired uploads are hidden at once; this deletes them. A failure must not fail the upload.
+  await purgeExpired().catch((err) => console.error("purge failed", err));
 
   let form: FormData;
   try {

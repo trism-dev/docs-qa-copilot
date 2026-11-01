@@ -93,7 +93,7 @@ export function Documents(props: {
           }}
         />
         <p id="upload-hint" className="muted small">
-          Up to 4 MB and 300 pages, with selectable text (scans are not supported). Uploads are private to you and deleted after 24 hours.
+          Up to 4 MB and 300 pages, with selectable text (scans are not supported). Uploads are private to you, hidden after 24 hours, and deleted within a day after that.
         </p>
         <div role="status">
           {uploading && <p className="working">Reading and indexing {uploading}. This can take a minute…</p>}
