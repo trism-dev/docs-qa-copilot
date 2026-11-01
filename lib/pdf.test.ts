@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { extractPages, MAX_PAGES, PdfError } from "./pdf.ts";
+import { PDFDocument, StandardFonts } from "pdf-lib";
 import { makePdf } from "./test-pdf.ts";
 
 async function codeOf(p: Promise<unknown>) {
@@ -61,3 +62,19 @@ test("NUL characters are stripped from extracted text", async () => {
   assert.ok(!page.text.includes(String.fromCharCode(0)));
 });
 
+
+test("items of one word are joined, items a space apart are separated, wide gaps get a marker", async () => {
+  const doc = await PDFDocument.create();
+  const font = await doc.embedFont(StandardFonts.Helvetica);
+  const page = doc.addPage();
+  const size = 12;
+  // Draw each piece as its own text item, the way kerned PDFs do. offset = gap after the previous piece.
+  let x = 50;
+  for (const [text, gap] of [["Pr", 0], ["eferred", -0.5], ["provider", 3], ["Cell", 30]] as const) {
+    x += gap;
+    page.drawText(text, { x, y: 700, size, font });
+    x += font.widthOfTextAtSize(text, size);
+  }
+  const [{ text }] = await extractPages(Buffer.from(await doc.save()));
+  assert.equal(text, "Preferred provider | Cell");
+});

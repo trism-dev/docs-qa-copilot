@@ -21,6 +21,9 @@ const clean = (s: string) => s.replaceAll(String.fromCharCode(0), "").trim();
 const LINE_TOLERANCE = 3;
 // A gap wider than this (PDF points) between items on one line is a table cell boundary.
 const CELL_GAP = 12;
+// A gap wider than this fraction of the font height is a space. Fonts kern letters of one word into
+// separate items that touch or overlap (gap <= 0), while real word spaces measure 0.2 to 0.3 of the height.
+const SPACE_FRACTION = 0.15;
 
 export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page: number; text: string }[]> {
   if (buffer.length > MAX_BYTES) throw new PdfError("too_large", `PDF is larger than ${MAX_BYTES / 1024 / 1024} MB`);
@@ -47,7 +50,7 @@ export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page:
     for (let n = 1; n <= doc.numPages; n++) {
       const content = await (await doc.getPage(n)).getTextContent();
       const items = content.items.flatMap((it) =>
-        "str" in it && clean(it.str) ? [{ s: clean(it.str), x: it.transform[4], y: it.transform[5], w: it.width }] : [],
+        "str" in it && clean(it.str) ? [{ s: clean(it.str), x: it.transform[4], y: it.transform[5], w: it.width, h: it.height }] : [],
       );
       // Top of page first (PDF y grows upward), then group into lines.
       items.sort((a, b) => b.y - a.y);
@@ -58,10 +61,14 @@ export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page:
         else lines.push([it]);
       }
       // A wide horizontal gap is a table cell boundary: mark it so columns do not run together.
+      // A medium gap is a space; touching or overlapping items are one word.
       const joinLine = (l: typeof items) =>
         l
           .sort((a, b) => a.x - b.x)
-          .map((it, i) => (i === 0 ? "" : it.x - (l[i - 1].x + l[i - 1].w) > CELL_GAP ? " | " : " ") + it.s)
+          .map((it, i) => {
+            const gap = i === 0 ? 0 : it.x - (l[i - 1].x + l[i - 1].w);
+            return (i === 0 ? "" : gap > CELL_GAP ? " | " : gap > SPACE_FRACTION * l[i - 1].h ? " " : "") + it.s;
+          })
           .join("");
       const text = lines.map(joinLine).join("\n");
       pages.push({ page: n, text });
