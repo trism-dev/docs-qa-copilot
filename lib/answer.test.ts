@@ -228,3 +228,76 @@ test("API errors map to fixed messages, and neither the event nor the log contai
     spy.mock.restore();
   }
 });
+
+// The whole path, no seam in the code under test: only globalThis.fetch is replaced (the SDK reads it when the client is
+// built), and only for api.anthropic.com. Every failing reply echoes the key it received, as a hostile or buggy server could.
+test("through answerQuestion, a failing model API puts the key in no console call and no event", { skip: process.env.DATABASE_URL ? false : "DATABASE_URL not set", timeout: 120_000 }, async (t) => {
+  const { rows } = await getPool().query("SELECT count(*)::int AS n FROM documents WHERE owner IS NULL");
+  if (rows[0].n === 0) return t.skip("no public corpus in the database");
+
+  const SENTINEL = "sk-ant-sentinel0000000000000000";
+  const reply = (status: number, message: string, key: string) =>
+    new Response(JSON.stringify({ type: "error", error: { type: "x_error", message: `${message} ${key}` } }), {
+      status,
+      headers: { "content-type": "application/json", "x-should-retry": "false", "x-echo": key },
+    });
+  const cases: [string, string | null, (key: string) => Response][] = [
+    ["401", "invalid_key", (k) => reply(401, "invalid x-api-key", k)],
+    ["400 credit", "no_credit", (k) => reply(400, "Your credit balance is too low to access the Anthropic API.", k)],
+    ["429", "rate_limit", (k) => reply(429, "rate limited", k)],
+    ["403", "api", (k) => reply(403, "forbidden", k)],
+    ["500", "api", (k) => reply(500, "overloaded", k)],
+    [
+      "error event mid-stream",
+      null,
+      (k) =>
+        new Response(`event: error\ndata: ${JSON.stringify({ type: "error", error: { type: "overloaded_error", message: `overloaded ${k}` } })}\n\n`, {
+          status: 200,
+          headers: { "content-type": "text/event-stream" },
+        }),
+    ],
+    [
+      "network failure",
+      "connection",
+      (k) => {
+        throw new TypeError(`fetch failed for ${k}`, { cause: new Error(k) });
+      },
+    ],
+  ];
+
+  const realFetch = globalThis.fetch;
+  const sent: string[] = [];
+  let respond: (key: string) => Response = () => reply(500, "unset", "");
+  globalThis.fetch = (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
+    const url = input instanceof Request ? input.url : String(input);
+    if (!url.startsWith("https://api.anthropic.com/")) return realFetch(input, init);
+    const h = new Headers(init?.headers); // this SDK version sends the key as a Bearer token
+    const key = h.get("x-api-key") ?? h.get("authorization")?.replace(/^Bearer /, "") ?? "";
+    sent.push(key);
+    return respond(key);
+  }) as typeof fetch;
+
+  const logged: string[] = [];
+  const spies = (["error", "warn", "log", "info", "debug"] as const).map((m) =>
+    mock.method(console, m, (...args: unknown[]) => void logged.push(args.map((a) => (typeof a === "string" ? a : util.inspect(a, { depth: 6 }))).join(" "))),
+  );
+  try {
+    const events: AnswerEvent[] = [];
+    for (const [label, code, fn] of cases) {
+      respond = fn;
+      const mine: AnswerEvent[] = [];
+      for await (const e of answerQuestion("What is the standard Part B premium amount?", { apiKey: SENTINEL, owner: null })) mine.push(e);
+      const last = mine.at(-1);
+      assert.equal(last?.type, "error", `${label}: expected an error event`);
+      if (code && last?.type === "error") assert.equal(last.code, code, label);
+      events.push(...mine);
+    }
+    assert.ok(sent.length >= cases.length, "every case should reach the stubbed API (a network failure is retried once)");
+    assert.ok(sent.every((k) => k === SENTINEL), "the API must receive the caller's key, nothing else");
+    assert.ok(!JSON.stringify(events).includes(SENTINEL), "the key reached a yielded event");
+    assert.ok(!logged.join("\n").includes(SENTINEL), "the key reached a console call");
+  } finally {
+    for (const s of spies) s.mock.restore();
+    globalThis.fetch = realFetch;
+  }
+});
