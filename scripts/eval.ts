@@ -6,7 +6,7 @@ import { answerQuestion, MODEL } from "../lib/answer.ts";
 import { getPool } from "../lib/db.ts";
 import { aggregateAll, costOf, INPUT_PRICE, OUTPUT_PRICE, type Aggregate, type QuestionResult, type Report } from "../lib/eval-report.ts";
 import { K, retrieve, type RetrievedChunk } from "../lib/retrieve.ts";
-import { scoreResult, type Question } from "../lib/score.ts";
+import { missedFactsIn, scoreResult, type Question } from "../lib/score.ts";
 
 const CONCURRENCY = 3;
 const ATTEMPTS = 3;
@@ -64,6 +64,7 @@ function base(q: Question, chunks: RetrievedChunk[]): QuestionResult {
     document: q.document,
     goldPages: q.gold_pages,
     retrieved: chunks.map((c) => ({ documentName: c.documentName, page: c.page, chunkId: c.chunkId, score: c.score })),
+    factsInContext: q.unanswerable ? null : missedFactsIn(q, chunks.map((c) => c.text).join(" ")).length === 0,
     firstGoldRank: goldIdx >= 0 ? goldIdx + 1 : null,
     answer: null,
     citations: [],
@@ -144,7 +145,7 @@ const secs = (x: number | null) => (x === null ? "-" : `${(x / 1000).toFixed(1)}
 
 function summary(name: string, a: Aggregate, retrievalOnly: boolean): string {
   const lines = [`${name} (n=${a.n}, ${a.answerable} answerable, ${a.unanswerable} unanswerable${a.errors ? `, ${a.errors} errors` : ""})`];
-  lines.push(`  recall@k ${pct(a.recallAtK)}  recall@8 ${pct(a.recallAt8)}  MRR ${a.mrr === null ? "-" : a.mrr.toFixed(3)}`);
+  lines.push(`  recall@k ${pct(a.recallAtK)}  recall@8 ${pct(a.recallAt8)}  facts-in-context ${pct(a.contextFactRecall)}  MRR ${a.mrr === null ? "-" : a.mrr.toFixed(3)}`);
   if (!retrievalOnly) {
     lines.push(`  answer ${pct(a.answerAccuracy)}  citation ${pct(a.citationAccuracy)}  abstention ${pct(a.abstentionAccuracy)}`);
     lines.push(`  by category: ${Object.entries(a.byCategory).map(([c, v]) => `${c} ${v.correct}/${v.n}`).join("  ")}`);

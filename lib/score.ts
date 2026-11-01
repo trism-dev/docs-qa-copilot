@@ -27,13 +27,19 @@ export type Score = {
 // Bold markers and line breaks are formatting, not content: "**$350**" and "two\nweeks" should match.
 const normalize = (s: string) => s.replaceAll("**", "").replace(/\s+/g, " ").trim();
 
+// The facts of an answerable question that no alternative matches in the text.
+export function missedFactsIn(q: Question, text: string): string[][] {
+  const t = normalize(text);
+  return q.must_include.filter((alts) => !alts.some((a) => new RegExp(a, "i").test(t)));
+}
+
 export function scoreResult(q: Question, r: ScoreInput): Score {
   const answer = normalize(r.answer);
   const abstained = answer.startsWith(NOT_IN_DOCUMENTS_SENTENCE);
   if (q.unanswerable) {
     return { factsMet: false, missedFacts: [], citationHit: false, abstained, correct: abstained && r.citations.length === 0 };
   }
-  const missedFacts = q.must_include.filter((alts) => !alts.some((a) => new RegExp(a, "i").test(answer)));
+  const missedFacts = missedFactsIn(q, answer);
   const factsMet = missedFacts.length === 0;
   const citationHit = r.citations.some((c) => c.documentName === q.document && q.gold_pages.includes(c.page));
   return { factsMet, missedFacts, citationHit, abstained, correct: factsMet && citationHit && !abstained };

@@ -1,0 +1,3356 @@
+{
+  "meta": {
+    "date": "2026-11-01T12:14:59.743Z",
+    "sha": "cd333c7",
+    "dirty": true,
+    "label": "dev-f-k16",
+    "split": "dev",
+    "retrievalOnly": false,
+    "final": false,
+    "model": "claude-opus-5-5",
+    "k": 16,
+    "corpus": {
+      "documents": [
+        "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+        "Medicare & You 2027"
+      ],
+      "pages": 296,
+      "chunks": 1182
+    },
+    "pricing": {
+      "inputPerMillion": 4,
+      "outputPerMillion": 20
+    }
+  },
+  "aggregates": {
+    "overall": {
+      "n": 20,
+      "answerable": 17,
+      "unanswerable": 3,
+      "errors": 0,
+      "answerAccuracy": 0.9,
+      "citationAccuracy": 1,
+      "abstentionAccuracy": 1,
+      "recallAtK": 1,
+      "recallAt8": 1,
+      "mrr": 0.9509803921568628,
+      "byCategory": {
+        "fact": {
+          "n": 7,
+          "correct": 6,
+          "accuracy": 0.8571428571428571
+        },
+        "table": {
+          "n": 5,
+          "correct": 5,
+          "accuracy": 1
+        },
+        "procedure": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1
+        },
+        "multi_page": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "unanswerable": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1
+        }
+      },
+      "p50Ms": 4097.6522,
+      "p95Ms": 6904.371900000002,
+      "p50FirstTextMs": 1302.5373999999993,
+      "costPerQuestion": 0.04576680000000001,
+      "totalCost": 0.9153360000000001
+    },
+    "dev": {
+      "n": 20,
+      "answerable": 17,
+      "unanswerable": 3,
+      "errors": 0,
+      "answerAccuracy": 0.9,
+      "citationAccuracy": 1,
+      "abstentionAccuracy": 1,
+      "recallAtK": 1,
+      "recallAt8": 1,
+      "mrr": 0.9509803921568628,
+      "byCategory": {
+        "fact": {
+          "n": 7,
+          "correct": 6,
+          "accuracy": 0.8571428571428571
+        },
+        "table": {
+          "n": 5,
+          "correct": 5,
+          "accuracy": 1
+        },
+        "procedure": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1
+        },
+        "multi_page": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "unanswerable": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1
+        }
+      },
+      "p50Ms": 4097.6522,
+      "p95Ms": 6904.371900000002,
+      "p50FirstTextMs": 1302.5373999999993,
+      "costPerQuestion": 0.04576680000000001,
+      "totalCost": 0.9153360000000001
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "question": "How much is the yearly deductible for just me on the Standard Option?",
+      "split": "dev",
+      "category": "fact",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        30,
+        31,
+        34,
+        40,
+        64,
+        76,
+        90,
+        94,
+        122,
+        152,
+        164
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "chunkId": 8689,
+          "score": 0.7616005851746519
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "chunkId": 8682,
+          "score": 0.7471675276756764
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 65,
+          "chunkId": 8785,
+          "score": 0.7434236544532277
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 65,
+          "chunkId": 8784,
+          "score": 0.7395590543747421
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 112,
+          "chunkId": 8988,
+          "score": 0.7318290588550194
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "chunkId": 8636,
+          "score": 0.7312111053499907
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "chunkId": 8635,
+          "score": 0.7307079170631079
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "chunkId": 9168,
+          "score": 0.7286988122578187
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 95,
+          "chunkId": 8907,
+          "score": 0.7233007055462783
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "chunkId": 8836,
+          "score": 0.721050832146389
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "chunkId": 8634,
+          "score": 0.7152151295671262
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 124,
+          "chunkId": 9034,
+          "score": 0.7147733911196575
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 131,
+          "chunkId": 9072,
+          "score": 0.7124862670898893
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 33,
+          "chunkId": 8648,
+          "score": 0.7119544482095398
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 150,
+          "chunkId": 9162,
+          "score": 0.7109306785257705
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 80,
+          "chunkId": 8848,
+          "score": 0.709294992131355
+        }
+      ],
+      "firstGoldRank": 6,
+      "answer": "Under the Standard Option, your yearly deductible is **$350**. Under Standard Option, the calendar year deductible is $350 per person. After the deductible amount is satisfied for an individual, covered services are payable for that individual.\n\nFor comparison, under Basic Option, there is no calendar year deductible.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "quote": "Under Standard Option, the calendar year deductible is $350 per person. "
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "quote": "After the deductible amount\nis satisfied for an individual, covered services are payable for that individual. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "quote": "Under Basic Option, there is no calendar year deductible.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1549.5406,
+      "totalMs": 2741.0357999999997,
+      "inputTokens": 9103,
+      "outputTokens": 156,
+      "costUsd": 0.039532,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q04",
+      "question": "I'm in the hospital for 75 days straight under Original Medicare. How much do I owe per day for the days after the first 60?",
+      "split": "dev",
+      "category": "table",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        30
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "chunkId": 9344,
+          "score": 0.7343362132110481
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 120,
+          "chunkId": 9646,
+          "score": 0.7030639760341751
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 20,
+          "chunkId": 9312,
+          "score": 0.6863165871719614
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "chunkId": 9350,
+          "score": 0.6814589350238612
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "chunkId": 9345,
+          "score": 0.6746154032533066
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 29,
+          "chunkId": 9341,
+          "score": 0.6717880172603248
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 147,
+          "chunkId": 9146,
+          "score": 0.6652548114879512
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "chunkId": 9351,
+          "score": 0.6594368402975521
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 6,
+          "chunkId": 9268,
+          "score": 0.6543180964616376
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 87,
+          "chunkId": 9547,
+          "score": 0.6536575360996292
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 17,
+          "chunkId": 9300,
+          "score": 0.6485320362093395
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 20,
+          "chunkId": 9313,
+          "score": 0.6481764702902224
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 85,
+          "chunkId": 8872,
+          "score": 0.6454274462036085
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "chunkId": 9324,
+          "score": 0.6441746566191532
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "chunkId": 9170,
+          "score": 0.6423616387571509
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 18,
+          "chunkId": 8570,
+          "score": 0.6398667145013736
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "For days 61 through 75 of your stay, you'd pay **$434 per day**. During a benefit period, what you pay depends on how long you're getting inpatient hospital care:\n\n- Days 1–60: After you pay the $1,736 Part A deductible, you pay $0 each day.\n- Days 61–90: You pay $434 each day.\n\nFor a 75-day stay, that's 15 days at $434, or **$6,510**, plus the **$1,736** deductible. The deductible figure is listed as the amount (in 2026). Since your stay ends before day 91, you won't use any lifetime reserve days.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "quote": "During a benefit period, what you\npay depends on how long you’re getting inpatient hospital care:\n"
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "quote": "• Days 1–60: After you pay the $1,736 Part A deductible, you pay $0\neach day.\n"
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "quote": "• Days 61–90: You pay $434 each day.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "quote": "Each time you start a new benefit period, you must pay $1,736\n(in 2026) before Medicare starts to pay. "
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1790.37,
+      "totalMs": 3797.9692000000005,
+      "inputTokens": 9013,
+      "outputTokens": 320,
+      "costUsd": 0.042452,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q06",
+      "question": "I'm a federal retiree with an OPM annuity and I don't get Social Security. How do I get my Part B premium paid?",
+      "split": "dev",
+      "category": "procedure",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        24
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "chunkId": 9323,
+          "score": 0.7920445528216299
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "chunkId": 9324,
+          "score": 0.7850232803877292
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 19,
+          "chunkId": 9309,
+          "score": 0.7326798993778197
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 15,
+          "chunkId": 9293,
+          "score": 0.7048257305698896
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 93,
+          "chunkId": 9571,
+          "score": 0.6883936006046346
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 22,
+          "chunkId": 9317,
+          "score": 0.6840078485035554
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 23,
+          "chunkId": 9321,
+          "score": 0.6747981927747795
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 16,
+          "chunkId": 9296,
+          "score": 0.671044093210022
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 13,
+          "chunkId": 8546,
+          "score": 0.6693101727140583
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 16,
+          "chunkId": 9297,
+          "score": 0.6665361125758157
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 19,
+          "chunkId": 9308,
+          "score": 0.6617431430204443
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 15,
+          "chunkId": 9291,
+          "score": 0.6609911307370859
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 148,
+          "chunkId": 9151,
+          "score": 0.6609137042827553
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 22,
+          "chunkId": 9318,
+          "score": 0.6552506839710169
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 14,
+          "chunkId": 8550,
+          "score": 0.6519093875669159
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 99,
+          "chunkId": 9590,
+          "score": 0.6487241307157865
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "As a federal retiree with an OPM annuity who isn't entitled to Social Security or RRB benefits, you must ask to have your Part B premiums deducted from your annuity. Contact your local Social Security office to make your request. Visit SSA.gov/locator to find your local office.\n\nIf you don't set up that deduction, you'll get a bill for your Part B premium. Typically, Part B premiums are billed quarterly (every 3 months). There are 4 ways to pay your premium bill, including:\n\n- Online through your secure Medicare account: Visit Medicare.gov/account to log into (or create) your Medicare account. Then, select \"Pay my premium\" to make a payment by credit card, debit card, Health Savings Account (HSA) card, or from your checking or savings account. This free service is the fastest way to pay your premium.\n- Medicare Easy Pay, a free service that automatically deducts your payment. If you use it, you'll get a monthly bill.\n\nThe excerpts provided don't list the remaining two payment methods.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "If you’re a federal retiree with an annuity from the Office of Personnel\nManagement (OPM) and you aren’t entitled to Social Security or Railroad\nRetirement Board (RRB) benefits, you must ask to have your Part B premiums\ndeducted from your annuity. "
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "Contact your local Social Security office to make your\nrequest. "
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "Visit SSA.gov/locator to find your local office.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "If you don’t get Social Security or RRB benefits (or don’t get your premiums\ndeducted from an OPM annuity), you’ll get a bill for your Part B premium."
+        },
+        {
+          "n": 5,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "Typically, Part B premiums are billed quarterly (every 3 months). "
+        },
+        {
+          "n": 6,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "There are 4 ways to pay your premium bill:\n"
+        },
+        {
+          "n": 7,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "• Online through your secure Medicare account: Visit Medicare.gov/account to\nlog into (or create) your Medicare account. "
+        },
+        {
+          "n": 8,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "Then, select “Pay my premium” to\nmake a payment by credit card, debit card, Health Savings Account (HSA) card,\nor from your checking or savings account. "
+        },
+        {
+          "n": 9,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "This free service is the fastest way to pay your\npremium.\n"
+        },
+        {
+          "n": 10,
+          "documentName": "Medicare & You 2027",
+          "page": 24,
+          "quote": "If you also pay\nfor Part A or Part D IRMAA, or use Medicare Easy Pay to pay your premiums,\nyou’ll get a monthly bill (pages 24 and 86). "
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1512.6019,
+      "totalMs": 5151.4856,
+      "inputTokens": 9874,
+      "outputTokens": 536,
+      "costUsd": 0.050216,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q08",
+      "question": "I'm thinking about Basic Option, Self Only. Is there a deductible I have to meet first, and what's the most I could pay out of pocket in a year if I stick with PPO providers?",
+      "split": "dev",
+      "category": "multi_page",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        30,
+        31,
+        35,
+        40,
+        41,
+        65,
+        76,
+        90,
+        91,
+        94,
+        95,
+        104,
+        112,
+        122,
+        152,
+        166,
+        167
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 167,
+          "chunkId": 9251,
+          "score": 0.7573650786119793
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 15,
+          "chunkId": 8557,
+          "score": 0.7534778861118744
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8656,
+          "score": 0.7526791537978113
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 30,
+          "chunkId": 8635,
+          "score": 0.7523454504321921
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8657,
+          "score": 0.7493906691125637
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "chunkId": 8682,
+          "score": 0.7472536865170588
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 90,
+          "chunkId": 8888,
+          "score": 0.7445029172597696
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8655,
+          "score": 0.7429268802956881
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 165,
+          "chunkId": 9244,
+          "score": 0.7381918430328421
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 94,
+          "chunkId": 8905,
+          "score": 0.7348026633262686
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 32,
+          "chunkId": 9354,
+          "score": 0.7328162848487159
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 94,
+          "chunkId": 8906,
+          "score": 0.7281512456030409
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8645,
+          "score": 0.7273390726649221
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "chunkId": 8689,
+          "score": 0.7268075942993216
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8642,
+          "score": 0.7203809356235548
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8644,
+          "score": 0.7147211346529203
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "No deductible applies. Basic Option does not have a calendar year deductible. Instead, most services are subject to copayments ($35 for primary care providers and $50 for specialists).\n\nFor a Self Only enrollment, your out-of-pocket maximum for eligible coinsurance and copayment amounts is **$7,500** when you use Preferred providers. Only eligible expenses for Preferred provider services count toward these limits. When your eligible out-of-pocket expenses reach this catastrophic protection maximum, you no longer have to pay the associated cost-sharing amounts for the rest of the calendar year.\n\nKeep in mind:\n- Some expenses are not included under this feature. These expenses do not count toward your catastrophic protection out-of-pocket maximum, and you must continue to pay them even after you reach it.\n- Under Basic Option you must use Preferred providers in order to receive benefits. There are no benefits for care performed by Participating and Non-participating providers. The exceptions include cases like medical emergency or accidental injury.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "quote": "Basic Option | Basic Option does not have a calendar year deductible. "
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "quote": "Most services are subject to copayments ($35\nfor primary care providers and $50 for specialists). "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "Basic Option maximum:\nPreferred Provider maximum – For a Self Only enrollment, your out-of-pocket maximum for eligible\ncoinsurance and copayment amounts is $7,500 when you use Preferred providers. "
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "Only eligible expenses for Preferred provider services count toward\nthese limits.\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "When your eligible out-of-pocket\npocket maximum for | expenses reach this catastrophic protection maximum, you no longer have to pay the associated cost-\ndeductibles, | sharing amounts for the rest of the calendar year. "
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "The following expenses are not included under this feature. These expenses do not count toward your\ncatastrophic protection out-of-pocket maximum, and you must continue to pay them even after your"
+        },
+        {
+          "n": 7,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "quote": "• Remember, under Basic Option you must use Preferred providers in order to receive benefits.\nThere are no benefits for care performed by Participating and Non-participating providers.\n"
+        },
+        {
+          "n": 8,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 90,
+          "quote": "- You must use Preferred providers in order to receive benefits, except in cases of medical emergency\nor accidental injury. "
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 972.7270000000003,
+      "totalMs": 4580.448900000001,
+      "inputTokens": 9531,
+      "outputTokens": 495,
+      "costUsd": 0.048024,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q11",
+      "question": "What's the most I'd pay out of pocket in a year on Standard Option if I'm single and only use PPO providers?",
+      "split": "dev",
+      "category": "fact",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        35,
+        165
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8657,
+          "score": 0.7407811504835237
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8656,
+          "score": 0.7302506613133969
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "chunkId": 8682,
+          "score": 0.7300657516600454
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 15,
+          "chunkId": 8557,
+          "score": 0.7238251300066606
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "chunkId": 8689,
+          "score": 0.7204615640365158
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8644,
+          "score": 0.7094206310700067
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8645,
+          "score": 0.7062085866928101
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 167,
+          "chunkId": 9251,
+          "score": 0.7011663139561615
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8655,
+          "score": 0.6984454989433289
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 15,
+          "chunkId": 8554,
+          "score": 0.6977109132832845
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 16,
+          "chunkId": 8560,
+          "score": 0.6964992699920708
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 112,
+          "chunkId": 8988,
+          "score": 0.6953943371772766
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8642,
+          "score": 0.6947506615965486
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 31,
+          "chunkId": 8640,
+          "score": 0.6941811673857222
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 33,
+          "chunkId": 8648,
+          "score": 0.6926065912969867
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 165,
+          "chunkId": 9243,
+          "score": 0.689499020576477
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "On Standard Option with a Self Only enrollment, your catastrophic protection out-of-pocket maximum is **$6,000** when you use Preferred (PPO) providers. For a Self Only enrollment, your out-of-pocket maximum for your deductible, eligible coinsurance and copayment amounts; is $6,000 when you use Preferred providers. When your eligible out-of-pocket expenses reach this catastrophic protection maximum, you no longer have to pay the associated cost-sharing amounts for the rest of the calendar year.\n\nThis is not an absolute cap on everything you might spend. Certain types of expenses do not accumulate to the maximum, and you must continue to pay them even after you reach it. The excerpts provided don't include the full list of those excluded expenses.\n\nFor comparison, Basic Option's Self Only Preferred maximum is **$7,500**.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "Standard Option maximums:\nPreferred Provider maximum – For a Self Only enrollment, your out-of-pocket maximum for your\ndeductible, eligible coinsurance and copayment amounts; is $6,000 when you use Preferred providers.\n"
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "When your eligible out-of-pocket\npocket maximum for | expenses reach this catastrophic protection maximum, you no longer have to pay the associated cost-\ndeductibles, | sharing amounts for the rest of the calendar year. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "Note: Certain types of expenses do not accumulate to the maximum (see below).\n"
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "quote": "These expenses do not count toward your\ncatastrophic protection out-of-pocket maximum, and you must continue to pay them even after your"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1570.7322999999997,
+      "totalMs": 4231.410400000001,
+      "inputTokens": 9739,
+      "outputTokens": 422,
+      "costUsd": 0.047396,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q12",
+      "question": "I need an MRI done in a hospital's outpatient department. What will the hospital charge me on Basic Option?",
+      "split": "dev",
+      "category": "table",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        81,
+        166
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "chunkId": 8852,
+          "score": 0.7468698398211808
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 18,
+          "chunkId": 8569,
+          "score": 0.7348366890039071
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 80,
+          "chunkId": 8850,
+          "score": 0.7203459095645708
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "chunkId": 8854,
+          "score": 0.7011208828923468
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 79,
+          "chunkId": 8845,
+          "score": 0.6983438257351338
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "chunkId": 8853,
+          "score": 0.6947381628183931
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 82,
+          "chunkId": 8857,
+          "score": 0.6931038268680828
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 83,
+          "chunkId": 8861,
+          "score": 0.6926248326413676
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 50,
+          "chunkId": 9420,
+          "score": 0.6778065734370772
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 96,
+          "chunkId": 8912,
+          "score": 0.6757570891669931
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 79,
+          "chunkId": 8844,
+          "score": 0.6737036698725594
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "chunkId": 8836,
+          "score": 0.6708846869353874
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 97,
+          "chunkId": 8916,
+          "score": 0.6640396914458565
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 33,
+          "chunkId": 8648,
+          "score": 0.6635613441467474
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 80,
+          "chunkId": 8848,
+          "score": 0.6620537059115078
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 157,
+          "chunkId": 9194,
+          "score": 0.6601435142798516
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "On Basic Option, an MRI performed and billed by a hospital outpatient facility falls under outpatient diagnostic testing and treatment services. That category includes CT scans/MRIs/PET scans.\n\nBasic Option cost share:\n- Preferred facilities: **$250 copayment per day per facility**\n- Member facilities: **$250** copayment per day per facility\n- Non-member facilities: **$250** copayment per day per facility, plus any difference between our allowance and the billed amount\n\nAdditional notes for Basic Option:\n- You may be responsible for paying a higher copayment per day per facility if other diagnostic and/or treatment services are billed in addition to the services listed here.\n- You pay 35% of the Plan allowance for agents or drugs administered or obtained in connection with your care. This would apply to something like contrast dye, for example.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "• CT scans/MRIs/PET scans\nNon-member facilities: $250\napplies)\n"
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "Standard and Basic Option\nBenefit Description | You Pay\nOutpatient Hospital or Ambulatory Surgical | Standard Option | Basic Option\nCenter (cont.)\nOutpatient diagnostic testing and treatment services | Preferred facilities: 15% of the | Preferred facilities: $250\nperformed and billed by a facility, limited to: | Plan allowance (deductible | copayment per day per facility\napplies)\n"
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "• Angiographies\nMember facilities: $250\n• Bone density tests | Member facilities: 35% of the | copayment per day per facility\nPlan allowance (deductible\n"
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "• Bone density tests | Member facilities: 35% of the | copayment per day per facility\nPlan allowance (deductible\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "• Nuclear medicine | copayment per day per facility,\nNon-member facilities: 35% of | plus any difference between our\n• Facility-based sleep studies (prior approval is required)\nthe Plan allowance (deductible | allowance and the billed amount\n"
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "You may also be\nNote: You may be responsible for\nresponsible for any difference\nNote: For outpatient facility care related to maternity, | paying a higher copayment per\nbetween our allowance and the\nincluding outpatient care at birthing facilities, we waive | day per facility if other diagnostic\nbilled amount.\nyour cost-share amount and pay for covered services in | and/or treatment services are\nfull when you use a Preferred facility. | billed in addition to the services\nlisted here.\n"
+        },
+        {
+          "n": 7,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "quote": "Note: You pay 35% of the Plan\nallowance for agents or drugs\nadministered or obtained in\nconnection with your care.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1012.3173000000006,
+      "totalMs": 4097.6522,
+      "inputTokens": 9401,
+      "outputTokens": 423,
+      "costUsd": 0.046064,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q13",
+      "question": "My mom is in a skilled nursing facility and it's day 45 of her stay. What does Medicare charge her per day?",
+      "split": "dev",
+      "category": "table",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        31
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "chunkId": 9350,
+          "score": 0.7191891047681142
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "chunkId": 9485,
+          "score": 0.6881627087932886
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 85,
+          "chunkId": 8870,
+          "score": 0.687906503677373
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 61,
+          "chunkId": 8770,
+          "score": 0.6832740465941367
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "chunkId": 9349,
+          "score": 0.6797130310449983
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 61,
+          "chunkId": 8769,
+          "score": 0.6752226739856393
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 55,
+          "chunkId": 8749,
+          "score": 0.6729722412857722
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 120,
+          "chunkId": 9646,
+          "score": 0.6717065163358459
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 86,
+          "chunkId": 8873,
+          "score": 0.6701656180521489
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "chunkId": 9344,
+          "score": 0.6683857042559573
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 104,
+          "chunkId": 8950,
+          "score": 0.6621517144351188
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 29,
+          "chunkId": 9341,
+          "score": 0.658153155932029
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 96,
+          "chunkId": 8913,
+          "score": 0.6563783288002061
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "chunkId": 9484,
+          "score": 0.6525270161000472
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 89,
+          "chunkId": 9552,
+          "score": 0.6523907598983336
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "chunkId": 8836,
+          "score": 0.6515152508562091
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Under Original Medicare, day 45 falls in the second tier of a skilled nursing facility benefit period:\n\n- Days 21–100: You pay $217 each day.\n\nThat is **$217 per day**. For context, Days 1–20: You pay $0 each day after you pay the $1,736 amount, and for Days 101 and beyond: You pay all costs.\n\nIf she is in a Medicare Advantage Plan instead, the plan's rate may differ, but Medicare Advantage Plans can't charge more than Original Medicare for certain services, like chemotherapy, dialysis, and days 21–100 of skilled nursing facility care.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "quote": "• Days 21–100: You pay $217 each day.\n"
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "quote": "• Days 1–20: You pay $0 each day after you pay the $1,736 amount.\n"
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 31,
+          "quote": "• Days 101 and beyond: You pay all costs.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "quote": "Medicare Advantage Plans can’t charge more than Original\nMedicare for certain services, like chemotherapy, dialysis, and days 21–100 of\nskilled nursing facility care (page 31)."
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1302.5373999999993,
+      "totalMs": 3450.1072000000004,
+      "inputTokens": 9474,
+      "outputTokens": 378,
+      "costUsd": 0.045456,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q14",
+      "question": "What's the standard monthly Part B premium for 2027?",
+      "split": "dev",
+      "category": "unanswerable",
+      "document": null,
+      "goldPages": [],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 23,
+          "chunkId": 9319,
+          "score": 0.6619945378316551
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 164,
+          "chunkId": 9239,
+          "score": 0.6610432272216846
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 22,
+          "chunkId": 9318,
+          "score": 0.6600398021948516
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9520,
+          "score": 0.6501738250048416
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9521,
+          "score": 0.6408085441107528
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 104,
+          "chunkId": 8953,
+          "score": 0.6400772976737098
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 107,
+          "chunkId": 8965,
+          "score": 0.6386435412552367
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 23,
+          "chunkId": 9321,
+          "score": 0.6383237268039303
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 15,
+          "chunkId": 9294,
+          "score": 0.6363694234335142
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 17,
+          "chunkId": 8564,
+          "score": 0.6312281645808819
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 11,
+          "chunkId": 9281,
+          "score": 0.6305910569077201
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 108,
+          "chunkId": 8966,
+          "score": 0.6305333563844596
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "chunkId": 9249,
+          "score": 0.6250125989310484
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "chunkId": 9170,
+          "score": 0.6237634606291119
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 37,
+          "chunkId": 9372,
+          "score": 0.6237625928208166
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 17,
+          "chunkId": 8565,
+          "score": 0.6212356090545831
+        }
+      ],
+      "firstGoldRank": null,
+      "answer": "Not found in these documents.",
+      "citations": [],
+      "score": {
+        "factsMet": false,
+        "missedFacts": [],
+        "citationHit": false,
+        "abstained": true,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 471.3706000000002,
+      "totalMs": 858.8772000000008,
+      "inputTokens": 8355,
+      "outputTokens": 10,
+      "costUsd": 0.03362,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q17",
+      "question": "What enrollment code do I use to sign up for Basic Option Self Plus One?",
+      "split": "dev",
+      "category": "fact",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        1,
+        168
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 1,
+          "chunkId": 8483,
+          "score": 0.7987323521434813
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "chunkId": 9246,
+          "score": 0.69188117980959
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 168,
+          "chunkId": 9254,
+          "score": 0.6887388024110109
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 164,
+          "chunkId": 9239,
+          "score": 0.6864226442793704
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "chunkId": 8681,
+          "score": 0.6807192158270459
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 42,
+          "chunkId": 8693,
+          "score": 0.6698049104446328
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 63,
+          "chunkId": 8777,
+          "score": 0.6589895094043414
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 125,
+          "chunkId": 9037,
+          "score": 0.6487735155168735
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 51,
+          "chunkId": 8732,
+          "score": 0.6465873525563812
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 101,
+          "chunkId": 8931,
+          "score": 0.6463460151736764
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 12,
+          "chunkId": 8541,
+          "score": 0.6429756326122952
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 117,
+          "chunkId": 9006,
+          "score": 0.6427887082100098
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "chunkId": 9045,
+          "score": 0.6416904116684728
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 13,
+          "chunkId": 8542,
+          "score": 0.6405157279353512
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 1,
+          "chunkId": 8482,
+          "score": 0.6364956091790311
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 114,
+          "chunkId": 8995,
+          "score": 0.6363109377344675
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "The enrollment code for 113 Basic Option - Self Plus One is **113**.\n\nBe sure to put the correct enrollment code from the cover on your enrollment form.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 1,
+          "quote": "rrently under Temporary Continuation of\nCoverage)\nEnrollment codes for this Plan:\n104 Standard Option - Self Only\n106 Standard Option - Self Plus One\n105 Standard Option - Self and Family\n111 Basic Option - Self Only\n113 Basic Option - Self Plus One\n112 Basic Option - Self and Family\nRI 71-005"
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "quote": "If you want to enroll or change your enrollment in this Plan, be sure to put the correct enrollment code from the cover on your\nenrollment form.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 778.8942999999999,
+      "totalMs": 1713.9825999999994,
+      "inputTokens": 9030,
+      "outputTokens": 93,
+      "costUsd": 0.03798,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q19",
+      "question": "What's the biweekly premium for Aetna's FEHB plan for Self Only?",
+      "split": "dev",
+      "category": "unanswerable",
+      "document": null,
+      "goldPages": [],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 168,
+          "chunkId": 9253,
+          "score": 0.7202412415125997
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 64,
+          "chunkId": 8782,
+          "score": 0.6620327628870477
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 13,
+          "chunkId": 8544,
+          "score": 0.6571233860066583
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 164,
+          "chunkId": 9239,
+          "score": 0.6453005652398379
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 1,
+          "chunkId": 8482,
+          "score": 0.6376642126932613
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 40,
+          "chunkId": 8686,
+          "score": 0.6350695462587073
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "chunkId": 9168,
+          "score": 0.6312007024766735
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 114,
+          "chunkId": 8995,
+          "score": 0.6310828296318203
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 107,
+          "chunkId": 8962,
+          "score": 0.6299829792935844
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 168,
+          "chunkId": 9254,
+          "score": 0.6265135744979347
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "chunkId": 9246,
+          "score": 0.6253642962034289
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 148,
+          "chunkId": 9153,
+          "score": 0.6244329437951579
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 76,
+          "chunkId": 8834,
+          "score": 0.6228478247756585
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 105,
+          "chunkId": 8955,
+          "score": 0.6219545602798506
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 113,
+          "chunkId": 8993,
+          "score": 0.6219035612402323
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 35,
+          "chunkId": 8656,
+          "score": 0.6149739715503778
+        }
+      ],
+      "firstGoldRank": null,
+      "answer": "Not found in these documents.",
+      "citations": [],
+      "score": {
+        "factsMet": false,
+        "missedFacts": [],
+        "citationHit": false,
+        "abstained": true,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 785.7238000000016,
+      "totalMs": 1294.5493999999999,
+      "inputTokens": 9658,
+      "outputTokens": 10,
+      "costUsd": 0.038832,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q20",
+      "question": "If I'm admitted to the hospital on Basic Option, what do I pay and is there a cap on it?",
+      "split": "dev",
+      "category": "table",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        17,
+        73,
+        77,
+        78,
+        84,
+        85,
+        96,
+        97,
+        152,
+        166
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "chunkId": 8836,
+          "score": 0.7808091901769106
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 78,
+          "chunkId": 8840,
+          "score": 0.7664982487406738
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 79,
+          "chunkId": 8844,
+          "score": 0.7584011944773389
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "chunkId": 9170,
+          "score": 0.7368607552489137
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 81,
+          "chunkId": 8852,
+          "score": 0.7361476011672172
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 80,
+          "chunkId": 8848,
+          "score": 0.729281918449351
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 49,
+          "chunkId": 8724,
+          "score": 0.7289818748170882
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 82,
+          "chunkId": 8857,
+          "score": 0.7285591474579357
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 88,
+          "chunkId": 8881,
+          "score": 0.7281865535560784
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 42,
+          "chunkId": 8693,
+          "score": 0.7218130925559683
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 96,
+          "chunkId": 8911,
+          "score": 0.7198923397129006
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 125,
+          "chunkId": 9037,
+          "score": 0.7195008229912138
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "chunkId": 8689,
+          "score": 0.7136742727368406
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 83,
+          "chunkId": 8861,
+          "score": 0.7099053880093056
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 93,
+          "chunkId": 8900,
+          "score": 0.7088286529575374
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "chunkId": 9247,
+          "score": 0.7082741334928626
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "On Basic Option, at **Preferred facilities** you pay a $425 per day copayment up to $2,975 per admission. So yes, the cap is **$2,975 per admission**.\n\nOther points:\n- **Non-Preferred facilities:** For Non-PPO inpatient hospital care, You pay all charges.\n- **Maternity:** For Preferred facility care related to maternity, including care at Preferred birthing facilities, your responsibility for covered inpatient services is limited to $425 per admission.\n- **Deductible:** There is no calendar year deductible under Basic Option.\n- **Medicare:** If you have Medicare Parts A & B: $0.00.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "quote": "Inpatient Hospital | Standard Option | Basic Option\nRoom and board, such as: | Preferred facilities: $350 per | Preferred facilities: $425 per day\nadmission copayment for | copayment up to $2,975 per\n"
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 77,
+          "quote": "• Semiprivate or intensive care accommodations\nunlimited days (no deductible) | admission\n"
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "quote": "Basic Option Benefits | You pay | Page\nMedical services provided by | PPO: Nothing for preventive care; $35 per office visit for | 39-41\nphysicians: Diagnostic and treatment services | primary care providers and other healthcare professionals; $50\nprovided in the office | per office visit for specialists\nNon-PPO: You pay all charges\nMedical services provided by | PPO: Nothing | 39, 93\nphysicians: Telehealth services\nNon-PPO: You pay all charges\nServices provided by a hospital: Inpatient | PPO: $425 per day up to $2,975 per admission | 75-76\nNon-PPO: You pay all charges\nServices provided by a hospital: Outpatient | PPO: $250 per day per facility | 77-81\nNon-PPO: You pay all charges\nEmergency benefits: Accidental injury | PPO: $50 copayment for urgent care; $425 copayment for | 89-90\nemergency room care\nNon-PPO: $425 copayment for emergency room care; you pay\nall charges for care in settings other than the emergency room\nAmbulance transport services: $250 per day for ground"
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 49,
+          "quote": "• Prenatal and postpartum care (including ultrasound,\nNote: For facility care related to | related to maternity, including\nlaboratory, and diagnostic tests)\nmaternity, including care at | care at Preferred birthing\nNote: See Section 5(h) for details about our Pregnancy\nbirthing facilities, we waive the | facilities, your responsibility for\nCare Incentive Program.\nper admission copayment and | covered inpatient services is\n• Delivery | pay for covered services in full | limited to $425 per admission.\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "quote": "There is no calendar year deductible under Basic Option.\n"
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 152,
+          "quote": "$40\nStandard Option You Pay With Medicare Parts A & B: $0.00\nBasic Option You Pay Without Medicare: $50\nBasic Option With Medicare Parts A & B: $0.00\nBenefit Description: Inpatient Hospital\nStandard Option You Pay Without Medicare: $450\nStandard Option You Pay With Medicare Parts A & B: $0.00\nBasic Option You Pay Without Medicare: $425/day up to $2,975\nBasic Option With Medicare Parts A & B: $0.00\nBenefit Description: Outpatient Hospital\nStandard Option You Pay Without Medicare: 15% or $30 copayment\nStandard Option You Pay With Medicare Parts A & B: $0.00\nBasic Option You Pay Without Medicare: 35% or $35-$500 copayment\nBasic Option With Medicare Parts A & B: $0.00\nBenefit Description: Incentives Offered\nStandard Option You Pay Without Medicare: N/A\nStandard Option You Pay With Medicare Parts A & B: N/A\nBasic Option You Pay Without Medicare: N/A\nBasic Option With Medicare Parts A & B: N/A\n2026 Blue Cross® and Blue Shield® Service Benefit Plan | 150 | Section 9"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1364.4356000000007,
+      "totalMs": 3991.4051,
+      "inputTokens": 9434,
+      "outputTokens": 434,
+      "costUsd": 0.046416,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q24",
+      "question": "What's the income limit for the Qualified Medicare Beneficiary program in Texas?",
+      "split": "dev",
+      "category": "unanswerable",
+      "document": null,
+      "goldPages": [],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 19,
+          "chunkId": 8577,
+          "score": 0.6700892049021014
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 96,
+          "chunkId": 9581,
+          "score": 0.6421298980712891
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 18,
+          "chunkId": 8570,
+          "score": 0.6418425867745222
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 96,
+          "chunkId": 9580,
+          "score": 0.640956461429596
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 95,
+          "chunkId": 9578,
+          "score": 0.6309400356936542
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 7,
+          "chunkId": 9271,
+          "score": 0.6294078451747998
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 96,
+          "chunkId": 9579,
+          "score": 0.6288737399688046
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9521,
+          "score": 0.6260501519471509
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 8,
+          "chunkId": 9274,
+          "score": 0.6232134552939632
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 18,
+          "chunkId": 8574,
+          "score": 0.6231941727631343
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 112,
+          "chunkId": 8987,
+          "score": 0.621494338334286
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 95,
+          "chunkId": 9576,
+          "score": 0.6191312897723156
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 113,
+          "chunkId": 8993,
+          "score": 0.618558511905852
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 147,
+          "chunkId": 9147,
+          "score": 0.6146541833877563
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 17,
+          "chunkId": 8565,
+          "score": 0.6141188876770645
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9520,
+          "score": 0.6102970838546753
+        }
+      ],
+      "firstGoldRank": null,
+      "answer": "Not found in these documents.",
+      "citations": [],
+      "score": {
+        "factsMet": false,
+        "missedFacts": [],
+        "citationHit": false,
+        "abstained": true,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 510.76090000000113,
+      "totalMs": 910.2485000000015,
+      "inputTokens": 9535,
+      "outputTokens": 10,
+      "costUsd": 0.03834,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q25",
+      "question": "What do I get for filling out the Blue Health Assessment?",
+      "split": "dev",
+      "category": "fact",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        127
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "chunkId": 9048,
+          "score": 0.7049137217115017
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "chunkId": 9044,
+          "score": 0.6965799639880776
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "chunkId": 9041,
+          "score": 0.6761055378788117
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 44,
+          "chunkId": 8703,
+          "score": 0.6693096156162722
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "chunkId": 9040,
+          "score": 0.6676668722828214
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 162,
+          "chunkId": 9224,
+          "score": 0.6555429716927471
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "chunkId": 9046,
+          "score": 0.6553258525548333
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 134,
+          "chunkId": 9083,
+          "score": 0.646904689442557
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 155,
+          "chunkId": 9185,
+          "score": 0.644701957702655
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 134,
+          "chunkId": 9084,
+          "score": 0.6437002673863728
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 46,
+          "chunkId": 8714,
+          "score": 0.6435023971197178
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 44,
+          "chunkId": 8705,
+          "score": 0.6406216239558785
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 73,
+          "chunkId": 8822,
+          "score": 0.6370232917652654
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 106,
+          "chunkId": 9610,
+          "score": 0.6340916752815426
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 139,
+          "chunkId": 9112,
+          "score": 0.6285727466854204
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 26,
+          "chunkId": 8613,
+          "score": 0.6282071012710015
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Completing the Blue Health Assessment (BHA) gets you a personalized health plan, access to goal-based rewards, and possibly a free blood pressure monitor.\n\n**Health plan and coaching**\n- The BHA is an online health evaluation which can be completed in 10-20 minutes.\n- Your BHA answers are evaluated to create a unique health action plan.\n- Based on the results, you can select personalized goals, receive supportive advice, and track your progress through the online coaching tool, Daily Habits.\n\n**Health account dollars**\n- $40 is added to your health account for each goal achieved, up to a maximum of three goals per year.\n- By completing the BHA and a maximum of three health goals, you can earn up to a total of **$170** in health account dollars. The documents don't state the BHA's own reward separately.\n- You must complete the BHA and your selected goals during the calendar year to receive these incentives.\n- Only certain goals count. They must relate to exercise, nutrition, weight management, stress, emotional health, heart disease, heart failure, hypertension, chronic obstructive pulmonary disease (COPD) and asthma.\n\n**Free blood pressure monitor (hypertension)**\nIf you have hypertension, you can qualify for a free blood pressure monitor (BPM). This program is available to the contract holder and spouse. You qualify when both of these are true:\n- You complete the BHA and indicate that you have been diagnosed with hypertension.\n- At least one medical claim has been processed during the past 12 months with a reported diagnosis of hypertension.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "quote": "Blue Health | The Blue Health Assessment (BHA) questionnaire is an easy and engaging online health evaluation\nAssessment | program which can be completed in 10-20 minutes. "
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "quote": "Your BHA answers are evaluated to create a unique\nhealth action plan. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 126,
+          "quote": "Based on the results of your BHA, you can select personalized goals, receive\nsupportive advice, and easily track your progress through our online coaching tool, Daily Habits.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "We will add $40 to your health account for each goal\nachieved, up to a maximum of three goals per year. "
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "By completing the BHA and a maximum of three\nhealth goals, you can earn up to a total of $170 in health account dollars. "
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "You must complete the BHA\nand your selected goals during the calendar year in order to receive these incentives.\n"
+        },
+        {
+          "n": 7,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "Health account dollars are available only when you complete goals related to exercise, nutrition,\nweight management, stress, emotional health, heart disease, heart failure, hypertension, chronic\nobstructive pulmonary disease (COPD) and asthma and are limited to a maximum of three\ncompleted goals per calendar year."
+        },
+        {
+          "n": 8,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "This\nprogram is available to the contract holder and spouse who meet the following criteria.\n"
+        },
+        {
+          "n": 9,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "• You complete the Blue Health Assessment (BHA), and indicate that you have been diagnosed with\nhypertension.\n"
+        },
+        {
+          "n": 10,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 127,
+          "quote": "• At least one medical claim has been processed during the past 12 months with a reported diagnosis\nof hypertension.\n"
+        }
+      ],
+      "score": {
+        "factsMet": false,
+        "missedFacts": [
+          [
+            "\\$50(?!,?\\d|\\.\\d)"
+          ]
+        ],
+        "citationHit": true,
+        "abstained": false,
+        "correct": false
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1971.5625999999993,
+      "totalMs": 7070.068899999998,
+      "inputTokens": 9122,
+      "outputTokens": 839,
+      "costUsd": 0.053268,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q27",
+      "question": "How do I place my first mail-order prescription, and how long should I expect it to take?",
+      "split": "dev",
+      "category": "procedure",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        138
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "chunkId": 9105,
+          "score": 0.6841111402644134
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 100,
+          "chunkId": 8930,
+          "score": 0.6762906312942697
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 100,
+          "chunkId": 8929,
+          "score": 0.6516911956711773
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 27,
+          "chunkId": 8616,
+          "score": 0.6516204851300273
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 102,
+          "chunkId": 8937,
+          "score": 0.6450532847706465
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 91,
+          "chunkId": 9563,
+          "score": 0.6382227869564979
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 139,
+          "chunkId": 9107,
+          "score": 0.6356913174846929
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 89,
+          "chunkId": 9553,
+          "score": 0.6318129143938332
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 141,
+          "chunkId": 9119,
+          "score": 0.624421268563573
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 133,
+          "chunkId": 9081,
+          "score": 0.6231564801615154
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 100,
+          "chunkId": 8928,
+          "score": 0.619841419467869
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 29,
+          "chunkId": 8630,
+          "score": 0.6125663884023758
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 133,
+          "chunkId": 9080,
+          "score": 0.6102963352909887
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 114,
+          "chunkId": 8997,
+          "score": 0.6034230353488443
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 111,
+          "chunkId": 8982,
+          "score": 0.6004905999437893
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 29,
+          "chunkId": 8629,
+          "score": 0.5986997542052951
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "To place your first mail-order prescription through the Mail Service Prescription Drug Program:\n\n- Complete the initial mail order form;\n- Enclose your prescription and copayment;\n- Mail your order to CVS Caremark, P.O. Box 1590, Pittsburgh, PA 15230-1590; and\n- Allow up to two weeks for delivery.\n\nAlternatively, your physician may call in your initial prescription at 800-262-7890, TTY: 711. You are responsible for the copayment.\n\nTiming: expect **up to two weeks** for the first order. For comparison, you should allow up to ten days for delivery on refills.\n\nEligibility depends on your option:\n- Standard Option: Standard Option members may use our Mail Service Prescription Drug Program to fill their prescriptions.\n- Basic Option: The Mail Service Prescription Drug Program is available only to members with primary Medicare Part B coverage under Basic Option.\n\nOther points that could affect your order:\n- If your drug needs prior approval, the program will not fill it until you have that approval. CVS Caremark, the program administrator, will hold your prescription for you up to 30 days. If prior approval is not obtained within 30 days, your prescription will be unable to be filled and a letter will be mailed to you explaining the prior approval procedures.\n- Specialty drugs will not be dispensed through the Mail Service Prescription Drug Program.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Complete the initial mail order form;\n2. "
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Enclose your prescription and copayment;\n3. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Mail your order to CVS Caremark, P.O. Box 1590, Pittsburgh, PA 15230-1590; and\n4. "
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Allow up to two weeks for delivery.\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Alternatively, your physician may call in your initial prescription at 800-262-7890, TTY: 711. "
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "You\nare responsible for the copayment. "
+        },
+        {
+          "n": 7,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Allow up to ten days for delivery on refills.\n"
+        },
+        {
+          "n": 8,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 27,
+          "quote": "Standard Option members may use our Mail Service Prescription Drug Program to fill their\nprescriptions. "
+        },
+        {
+          "n": 9,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 139,
+          "quote": "Basic Option: The Mail Service Prescription Drug Program is available only to members with\nprimary Medicare Part B coverage under Basic Option.\n"
+        },
+        {
+          "n": 10,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 100,
+          "quote": "CVS Caremark, the program administrator, will hold your\nprescription for you up to 30 days. If prior approval is not obtained within 30 days, your prescription will be unable to be filled and\na letter will be mailed to you explaining the prior approval procedures."
+        },
+        {
+          "n": 11,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 138,
+          "quote": "Note: Specialty drugs will not be dispensed through the Mail Service Prescription Drug Program.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1006.0427,
+      "totalMs": 5647.356600000001,
+      "inputTokens": 9190,
+      "outputTokens": 734,
+      "costUsd": 0.05144,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q33",
+      "question": "If a doctor doesn't accept assignment, what's the most extra they can charge me above the Medicare-approved amount?",
+      "split": "dev",
+      "category": "fact",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        64
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 64,
+          "chunkId": 9467,
+          "score": 0.7813400085747342
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9166,
+          "score": 0.7785422665871302
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 63,
+          "chunkId": 9465,
+          "score": 0.768200659203299
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 63,
+          "chunkId": 9464,
+          "score": 0.7371174723822154
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 32,
+          "chunkId": 9354,
+          "score": 0.7193828512525829
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 43,
+          "chunkId": 9394,
+          "score": 0.7159503271609973
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 41,
+          "chunkId": 9388,
+          "score": 0.7127485535298242
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 150,
+          "chunkId": 9161,
+          "score": 0.7046612365265289
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9163,
+          "score": 0.6873190366055609
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9164,
+          "score": 0.6821628157510273
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "chunkId": 9484,
+          "score": 0.6816270108142571
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 62,
+          "chunkId": 9460,
+          "score": 0.6791225458237908
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 41,
+          "chunkId": 9387,
+          "score": 0.6703879030729976
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 4,
+          "chunkId": 9263,
+          "score": 0.6700328779142385
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9165,
+          "score": 0.6690944424529925
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 55,
+          "chunkId": 9441,
+          "score": 0.6682480768566138
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "A doctor who doesn't accept assignment can charge **up to 15% above** the Medicare-approved amount. They can charge you more than the Medicare-approved amount. In many cases, the charge can't be more than 15% above the Medicare-approved amount for non-participating healthcare providers. This amount is called \"the limiting charge.\" Put another way, such a physician may not bill you for more than 115% of the amount Medicare bases its payment on.\n\n**Exception for opt-out doctors:** A doctor who has opted out of Medicare is different from a non-participating doctor. Should you visit an opt-out physician, the physician will not be limited to 115% of the Medicare-approved amount.\n\n**If you're overcharged:** If your physician tries to collect more than allowed by law, ask the physician to reduce the charges. If the physician does not, report the physician to the Medicare carrier that sent you the MSN form.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 64,
+          "quote": "• They can charge you more than the Medicare-approved amount. "
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 64,
+          "quote": "In many\ncases, the charge can’t be more than 15% above the Medicare-approved\namount for non-participating healthcare providers. This amount is called “the\nlimiting charge.”\nFind out if someone accepts assignment or participates in Medicare:\nMedicare.gov/care-compare\nFind out if a medical equipment supplier accepts assignment:\nMedicare.gov/medical-equipment-suppliers\nYou can also call 1-800-MEDICARE (1-800-633-4227) to get free help with\nthese topics. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "quote": "It is important to know that a physician who does not accept Medicare assignment may\nnot bill you for more than 115% of the amount Medicare bases its payment on, called the\n“limiting charge.” The Medicare Summary Notice (MSN) form that you receive from\nMedicare will have more information about the limiting charge. "
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "quote": "Should you visit an opt-out\nphysician, the physician will not be limited to 115% of the Medicare-approved amount.\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "quote": "If your physician tries to\ncollect more than allowed by law, ask the physician to reduce the charges. If the physician\ndoes not, report the physician to the Medicare carrier that sent you the MSN form. "
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 999.273000000001,
+      "totalMs": 3857.6008,
+      "inputTokens": 9066,
+      "outputTokens": 453,
+      "costUsd": 0.045324,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q35",
+      "question": "Which Medigap plans help pay for emergency care while I'm traveling abroad, and how much do they pay?",
+      "split": "dev",
+      "category": "table",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        80
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9520,
+          "score": 0.6978451637487287
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 55,
+          "chunkId": 9440,
+          "score": 0.6898771092479139
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 166,
+          "chunkId": 9248,
+          "score": 0.6664115786324389
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 79,
+          "chunkId": 9516,
+          "score": 0.6367698122033671
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 79,
+          "chunkId": 9517,
+          "score": 0.6353875721425001
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9519,
+          "score": 0.631672435701925
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 158,
+          "chunkId": 9203,
+          "score": 0.6307175723359824
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 88,
+          "chunkId": 8884,
+          "score": 0.6301044258382167
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 34,
+          "chunkId": 8652,
+          "score": 0.6259319149790952
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 81,
+          "chunkId": 9522,
+          "score": 0.6254173070689817
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 12,
+          "chunkId": 9284,
+          "score": 0.6218266366851274
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 89,
+          "chunkId": 8886,
+          "score": 0.6189458554669048
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 132,
+          "chunkId": 9075,
+          "score": 0.618233103103439
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 34,
+          "chunkId": 8653,
+          "score": 0.6166275694931386
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 131,
+          "chunkId": 9072,
+          "score": 0.6113063742542748
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 81,
+          "chunkId": 9525,
+          "score": 0.6107017811923822
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Some Medigap policies cover services Original Medicare doesn't, like medical care when you travel outside the U.S.\n\nIn the Medigap comparison chart, the \"Foreign travel emergency care\" row shows 80% 80% 80% 80% | 80% | 80% (up to plan limits). So the plans that offer this benefit pay **80%**, up to plan limits. Six of the ten plans have an entry in that row. If a box is empty, it means that service isn't covered by that Medigap plan and you're responsible for paying the cost.\n\nThe chart's columns are A | B | C | D | F* | G* | K | L | M | N. However, the extracted text doesn't clearly show which six plans the 80% entries belong to, so I can't name them reliably from this excerpt.\n\nA few related limits:\n- You can't buy Medigap Plans C or F if you became eligible for Medicare on or after January 1, 2020.\n- Plans F and G offer a high-deductible plan in some states. With that version, you must pay up to $2,950 in 2026 for Medicare-covered costs (coinsurance, copayments, and deductibles) before your policy starts to pay.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 79,
+          "quote": "Some Medigap policies also cover services that Original Medicare doesn’t cover,\nlike medical care when you travel outside the U.S. "
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "| 100% 100% 100% 100% 50% | 75% | 100% | 100%\ncoinsurance\nBlood (first 3 pints) 100% 100% 100% 100% 100% 100% 50% | 75% | 100% | 100%\nMedicare Part B\ncoinsurance or | 100% 100% 100% 100% 100% 100% 50% | 75% | 100% 100%***\ncopayment\nMedicare Part B\n100% | 100% | 100%** 100%**\ndeductible\nMedicare Part B\n100% 100%\nexcess charges\nForeign travel\nemergency care | 80% 80% 80% 80% | 80% | 80%\n(up to plan limits)\n* Plans F and G offer a high-deductible plan in some states. "
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "If a\nbox is empty, it means that service isn’t covered by that Medigap plan and you’re\nresponsible for paying the cost.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "Medigap plans\nMedigap plans\nmay cover: | A | B | C | D | F* | G* | K | L | M | N\nMedicare Part A\ncoinsurance and | 100% 100% 100% 100% 100% 100% 100% | 100% 100% | 100%\nhospital costs\nMedicare Part A\nhospice care\n100% 100% 100% 100% 100% 100% 50% | 75% | 100% | 100%\ncoinsurance or\ncopayment\nMedicare Part A\n100% 100% 100% 100% 100% 50% | 75% | 50% | 100%\ndeductible\nSkilled nursing\nfacility care | 100% 100% 100% 100% 50% | 75% | 100% | 100%\ncoinsurance\nBlood (first 3 pints) 100% 100% 100% 100% 100% 100% 50% | 75% | 100% | 100%\nMedicare Part B"
+        },
+        {
+          "n": 5,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "Note: You can’t buy Medigap Plans C or F if you became eligible for Medicare\non or after January 1, 2020 (page 79).\n"
+        },
+        {
+          "n": 6,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "You must pay up\nto $2,950 in 2026 for Medicare-covered costs (coinsurance, copayments, and\ndeductibles) before your policy starts to pay.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 2594.982899999999,
+      "totalMs": 6323.193599999999,
+      "inputTokens": 8788,
+      "outputTokens": 713,
+      "costUsd": 0.049412,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q38",
+      "question": "How do I appeal a decision about a claim under Original Medicare?",
+      "split": "dev",
+      "category": "procedure",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        103
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "chunkId": 9599,
+          "score": 0.7894516963747105
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "chunkId": 9598,
+          "score": 0.775810433875905
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 102,
+          "chunkId": 9597,
+          "score": 0.7706320745129972
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 102,
+          "chunkId": 9596,
+          "score": 0.760318949203566
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 105,
+          "chunkId": 9606,
+          "score": 0.7562171220779634
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 30,
+          "chunkId": 9347,
+          "score": 0.7455013849434774
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 104,
+          "chunkId": 9604,
+          "score": 0.7349918204555778
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "chunkId": 9600,
+          "score": 0.7317756734161819
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 102,
+          "chunkId": 9595,
+          "score": 0.7189716649974964
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 101,
+          "chunkId": 9593,
+          "score": 0.71281373500826
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 62,
+          "chunkId": 9461,
+          "score": 0.7008144646640434
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 109,
+          "chunkId": 9620,
+          "score": 0.6899966555839809
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 106,
+          "chunkId": 9609,
+          "score": 0.6896134162870845
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 104,
+          "chunkId": 9602,
+          "score": 0.6871642693477438
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 146,
+          "chunkId": 9143,
+          "score": 0.6820133517972726
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 112,
+          "chunkId": 9630,
+          "score": 0.678586384015894
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Under Original Medicare, you appeal using your Medicare Summary Notice (MSN):\n\n- Get the \"Medicare Summary Notice\" (MSN) that shows the item or service you're appealing.\n- Circle the item(s) on the MSN you disagree with. Write an explanation of why you disagree with the decision. You can write on the MSN or on a separate piece of paper and attach it to the MSN.\n- Include your name, phone number, and Medicare Number on the MSN. Keep a copy for your records.\n- Send the MSN, or a copy, to the company that handles bills for Medicare (Medicare Administrative Contractor) listed on the MSN. You can include any information you have about your appeal, like information from your health care provider.\n\nInstead of marking up the MSN, you can use Form CMS-20027. To get this form, visit Medicare.gov/basics/forms-publications-mailings/forms/appeals, or call 1-800-MEDICARE (1-800-633-4227) to have a copy mailed to you.\n\nDeadline and decision timing:\n- You must file your appeal by the date in the MSN. If you missed the deadline for appealing, you may still file an appeal and get a decision if you can show good cause for missing the deadline.\n- You'll generally get a decision from the Medicare Administrative Contractor within 60 days after they get your request. If Medicare will cover the item(s) or service(s), it will be listed on your next MSN.\n\nIt also helps to ask your doctor, supplier, or other health care provider for any information to make your appeal stronger. Keep a copy of everything related to your appeal. You can also get help filing an appeal from your State Health Insurance Assistance Program (SHIP).",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• Get the “Medicare Summary Notice” (MSN) that shows the item or service\nyou’re appealing. "
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• Circle the item(s) on the MSN you disagree with. Write an explanation of why\nyou disagree with the decision. You can write on the MSN or on a separate\npiece of paper and attach it to the MSN.\n"
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• Include your name, phone number, and Medicare Number on the MSN. Keep a\ncopy for your records.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• Send the MSN, or a copy, to the company that handles bills for Medicare\n(Medicare Administrative Contractor) listed on the MSN. You can include\nany information you have about your appeal, like information from your\nhealth care provider. "
+        },
+        {
+          "n": 5,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "Or, you can use Form CMS-20027. To get this form, visit\nMedicare.gov/basics/forms-publications-mailings/forms/appeals, or call\n1-800-MEDICARE (1-800-633-4227) to have a copy mailed to you. "
+        },
+        {
+          "n": 6,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• You must file your appeal by the date in the MSN. "
+        },
+        {
+          "n": 7,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "If you missed the deadline\nfor appealing, you may still file an appeal and get a decision if you can show\ngood cause for missing the deadline (for example, if you have a disability,\nillness, or accident that delayed you from sending it by the deadline).\n"
+        },
+        {
+          "n": 8,
+          "documentName": "Medicare & You 2027",
+          "page": 103,
+          "quote": "• You’ll generally get a decision from the Medicare Administrative Contractor\nwithin 60 days after they get your request. If Medicare will cover the item(s)\nor service(s), it will be listed on your next MSN.\n"
+        },
+        {
+          "n": 9,
+          "documentName": "Medicare & You 2027",
+          "page": 102,
+          "quote": "If you decide to file an appeal, you can ask your doctor, supplier, or other health\ncare provider for any information to make your appeal stronger. Keep a copy of\neverything related to your appeal, including copies you send to Medicare or\nyour plan."
+        },
+        {
+          "n": 10,
+          "documentName": "Medicare & You 2027",
+          "page": 104,
+          "quote": "You can also get help\nfiling an appeal from your State Health Insurance Assistance Program (SHIP). "
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 1414.6144999999997,
+      "totalMs": 6475.358400000001,
+      "inputTokens": 9106,
+      "outputTokens": 766,
+      "costUsd": 0.051744,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q40",
+      "question": "Is there a cap on what I pay per month for insulin?",
+      "split": "dev",
+      "category": "fact",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        41,
+        92
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 41,
+          "chunkId": 9385,
+          "score": 0.6852889436138985
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 92,
+          "chunkId": 9565,
+          "score": 0.6749725922991279
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 108,
+          "chunkId": 8967,
+          "score": 0.6495861976598959
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 105,
+          "chunkId": 8954,
+          "score": 0.6489654183387756
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 85,
+          "chunkId": 9537,
+          "score": 0.6396147012710571
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 113,
+          "chunkId": 8991,
+          "score": 0.6316484589367197
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 114,
+          "chunkId": 8998,
+          "score": 0.6299389192443767
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 63,
+          "chunkId": 8777,
+          "score": 0.6298080462102928
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 112,
+          "chunkId": 8988,
+          "score": 0.628649115562439
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 11,
+          "chunkId": 9281,
+          "score": 0.6239111795372485
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 87,
+          "chunkId": 9544,
+          "score": 0.6232231933075539
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 17,
+          "chunkId": 8565,
+          "score": 0.6220246102839287
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 117,
+          "chunkId": 9006,
+          "score": 0.6192667030414033
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 22,
+          "chunkId": 9318,
+          "score": 0.6190017192068347
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "chunkId": 9484,
+          "score": 0.6172669758041527
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 108,
+          "chunkId": 8966,
+          "score": 0.6164271557967665
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Yes, if you have Medicare drug coverage. The Blue Cross Blue Shield FEHB plan sets a flat copayment for preferred insulins rather than a cap.\n\nMedicare\n- Plans can't charge you more than $35 for a one-month supply of each Part D-covered insulin you take, and you don't have to pay a deductible for insulin.\n- Similar cost limits apply for traditional insulin used in Part B-covered insulin pumps.\n\n2026 Blue Cross Blue Shield Service Benefit Plan (FEHB), Standard Option\n- Tier 2 (preferred insulins): $35 copayment for each purchase of up to a 30-day supply ($65 copayment for a 31 to 90-day supply) (no deductible). This applies at network retail pharmacies.\n- The excerpts do not show a separate insulin copayment for Basic Option.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 92,
+          "quote": "Plans can’t charge you more than $35 for a one-month supply of\neach Part D-covered insulin you take, and you don’t have to pay a deductible\nfor insulin.\n"
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 92,
+          "quote": "Similar cost limits apply for traditional insulin used in Part B-covered insulin\npumps. "
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 114,
+          "quote": "| drug): $65 copayment (no | drug): $75 copayment\ndeductible)\nNote: See earlier in this section for Tier 3 and Tier 4\nprescription drug benefits\nOther Preferred Diabetic Medications, Test Strips, | Tier 2 (preferred diabetic | Tier 2 (preferred diabetic\nand Supplies | medications and supplies): $20 | medications and supplies): $30\ncopayment for each purchase of | copayment for each purchase of\nNetwork Retail Pharmacies:\nup to a 30-day supply ($50 | up to a 30-day supply ($60\ncopayment for a 31 to 90-day | copayment for a 31 to 90-day\nsupply) (no deductible) | supply)\nTier 2 (preferred insulins): $35\ncopayment for each purchase of\nup to a 30-day supply ($65\ncopayment for a 31 to 90-day\nsupply) (no deductible)\nCovered Medication and Supplies - continued on next page\n2026 Blue Cross® and Blue Shield® Service Benefit Plan | 112 | Standard and Basic Option Section 5(f)"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 4100.421300000002,
+      "totalMs": 6516.6142,
+      "inputTokens": 9694,
+      "outputTokens": 694,
+      "costUsd": 0.052656,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q42",
+      "question": "What's the yearly Part B deductible in 2026, and which Medigap plans pay it?",
+      "split": "dev",
+      "category": "multi_page",
+      "document": "Medicare & You 2027",
+      "goldPages": [
+        32,
+        80
+      ],
+      "retrieved": [
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9520,
+          "score": 0.726819677759391
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9519,
+          "score": 0.7143524161506323
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 32,
+          "chunkId": 9354,
+          "score": 0.7010120780180765
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 86,
+          "chunkId": 9543,
+          "score": 0.6820694614690234
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "chunkId": 9521,
+          "score": 0.6810094929944864
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 104,
+          "chunkId": 8953,
+          "score": 0.6696361899375963
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 37,
+          "chunkId": 9371,
+          "score": 0.6641916832809743
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 88,
+          "chunkId": 9550,
+          "score": 0.6611967278953467
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 33,
+          "chunkId": 9359,
+          "score": 0.6593200551247707
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 37,
+          "chunkId": 9372,
+          "score": 0.6574969683585756
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 37,
+          "chunkId": 8674,
+          "score": 0.656289458274846
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 19,
+          "chunkId": 9309,
+          "score": 0.6559843215933049
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 164,
+          "chunkId": 9239,
+          "score": 0.6537198412763934
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 85,
+          "chunkId": 9537,
+          "score": 0.6509645969250569
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 69,
+          "chunkId": 9484,
+          "score": 0.650456607341771
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 77,
+          "chunkId": 9511,
+          "score": 0.6501472369055806
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "The yearly Part B deductible is **$283 in 2026**. Under Original Medicare, if the Part B deductible applies, you must pay all costs (up to the Medicare-approved amount) until you meet the yearly Part B deductible ($283 in 2026).\n\nI can't reliably tell which Medigap plans pay it. The Medigap comparison chart includes a \"Medicare Part B deductible\" row, but the extracted text shows only 100% | 100% | 100%** 100%** with no plan labels, so the figures can't be matched to specific plans. In the chart, if a box is empty, it means that service isn't covered by that Medigap plan and you're responsible for paying the cost.\n\nTwo related notes from the same page:\n- Plans K and L pay 100% of covered services for the rest of the calendar year after you meet your out-of-pocket yearly limit and your yearly Part B deductible ($283 in 2026).\n- You can't buy Medigap Plans C or F if you became eligible for Medicare on or after January 1, 2020.\n\nTo confirm which plans cover the deductible, check the original chart on page 80 of Medicare & You, or Medicare.gov.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "Medicare & You 2027",
+          "page": 32,
+          "quote": "Under Original Medicare, if the Part B deductible applies, you must pay all\ncosts (up to the Medicare-approved amount) until you meet the yearly Part B\ndeductible ($283 in 2026). "
+        },
+        {
+          "n": 2,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "| 100% 100% 100% 100% 50% | 75% | 100% | 100%\ncoinsurance\nBlood (first 3 pints) 100% 100% 100% 100% 100% 100% 50% | 75% | 100% | 100%\nMedicare Part B\ncoinsurance or | 100% 100% 100% 100% 100% 100% 50% | 75% | 100% 100%***\ncopayment\nMedicare Part B\n100% | 100% | 100%** 100%**\ndeductible\nMedicare Part B\n100% 100%\nexcess charges\nForeign travel\nemergency care | 80% 80% 80% 80% | 80% | 80%\n(up to plan limits)\n* Plans F and G offer a high-deductible plan in some states. "
+        },
+        {
+          "n": 3,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "If a\nbox is empty, it means that service isn’t covered by that Medigap plan and you’re\nresponsible for paying the cost.\n"
+        },
+        {
+          "n": 4,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "** Plans K and L pay 100% of covered services for the rest of the calendar\nyear after you meet your out-of-pocket yearly limit and your yearly Part B\ndeductible ($283 in 2026). "
+        },
+        {
+          "n": 5,
+          "documentName": "Medicare & You 2027",
+          "page": 80,
+          "quote": "Note: You can’t buy Medigap Plans C or F if you became eligible for Medicare\non or after January 1, 2020 (page 79).\n"
+        }
+      ],
+      "score": {
+        "factsMet": false,
+        "missedFacts": [
+          [
+            "\\bplans?\\s+(?:[a-z]\\s*(?:,|and|&)\\s*)*f\\b",
+            "\\bc\\s*(?:,|and|&)\\s*(?:plan\\s+)?f\\b",
+            "\\bf\\s*(?:,|and|&)\\s*(?:plan\\s+)?c\\b"
+          ]
+        ],
+        "citationHit": true,
+        "abstained": false,
+        "correct": false
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 3440.6605999999992,
+      "totalMs": 6904.371900000002,
+      "inputTokens": 7835,
+      "outputTokens": 744,
+      "costUsd": 0.04622,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    },
+    {
+      "id": "q48",
+      "question": "On Basic Option, will the plan pay anything if I see a doctor who isn't a Preferred provider?",
+      "split": "dev",
+      "category": "fact",
+      "document": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+      "goldPages": [
+        32,
+        41,
+        166
+      ],
+      "retrieved": [
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8644,
+          "score": 0.7701199143767735
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9166,
+          "score": 0.7610414144273479
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "chunkId": 8642,
+          "score": 0.7542957057247917
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "chunkId": 8682,
+          "score": 0.7422848362243619
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 41,
+          "chunkId": 8689,
+          "score": 0.736549408847164
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 151,
+          "chunkId": 9164,
+          "score": 0.7364209765635188
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 131,
+          "chunkId": 9070,
+          "score": 0.7358381309605772
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 72,
+          "chunkId": 9495,
+          "score": 0.7339027305274417
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 63,
+          "chunkId": 8777,
+          "score": 0.7324182987213187
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 72,
+          "chunkId": 9494,
+          "score": 0.7314401589107324
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 15,
+          "chunkId": 8554,
+          "score": 0.7294597029686026
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 31,
+          "chunkId": 8640,
+          "score": 0.7261464432565354
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 42,
+          "chunkId": 8695,
+          "score": 0.7240618467330984
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 150,
+          "chunkId": 9162,
+          "score": 0.7229960991738017
+        },
+        {
+          "documentName": "Medicare & You 2027",
+          "page": 70,
+          "chunkId": 9490,
+          "score": 0.7224356597815422
+        },
+        {
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 16,
+          "chunkId": 8560,
+          "score": 0.722184181213384
+        }
+      ],
+      "firstGoldRank": 1,
+      "answer": "Generally, no. Under Basic Option you must use Preferred providers in order to receive benefits. There are no benefits for care performed by Participating and Non-participating providers. For example, for diabetic education or office visits with a Participating/Non-participating provider, You pay all charges.\n\nThere are some exceptions:\n\n- **Emergency care:** You must use Preferred providers for your care to be eligible for benefits, except in certain circumstances, such as emergency care. The brochure says to see Section 3 for exceptions under What you must do to get covered care.\n- **Overseas care:** The Basic Option requirement to use Preferred providers in order to receive benefits does not apply when you receive overseas care.\n- **Some lab and diagnostic work:** In the lab, X-ray and diagnostic tests section, Basic Option members pay all charges for Participating/Non-participating providers (except as noted below). That note applies If your Preferred provider uses a Non-preferred laboratory or radiologist, but the rest of the note is cut off in this excerpt.\n\nIf you have Medicare and your physician does not participate with Medicare and is not in our Preferred network, under Basic Option - all charges are your responsibility.",
+      "citations": [
+        {
+          "n": 1,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "quote": "• Remember, under Basic Option you must use Preferred providers in order to receive benefits.\nThere are no benefits for care performed by Participating and Non-participating providers.\n"
+        },
+        {
+          "n": 2,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 63,
+          "quote": "copayment per visit\nNon-participating: 35% of the\nPlan allowance (deductible | Participating/Non-participating:\napplies), plus any difference | You pay all charges\nbetween our allowance and the\nbilled amount\nNot covered: | All charges | All charges\n"
+        },
+        {
+          "n": 3,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 39,
+          "quote": "You must use Preferred providers for your care to be\neligible for benefits, except in certain circumstances, such as emergency care. "
+        },
+        {
+          "n": 4,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 32,
+          "quote": "See Section 3 for exceptions under What you must do to get covered care.\n"
+        },
+        {
+          "n": 5,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 131,
+          "quote": "The Basic Option requirement to use Preferred providers in order to receive benefits\nbenefits | does not apply when you receive overseas care. "
+        },
+        {
+          "n": 6,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 42,
+          "quote": "applies), plus any difference\nbetween our allowance and the | Participating/Non-participating:\nbilled amount | You pay all charges (except as\nnoted below)\nNote: If your Preferred provider\nuses a Non-preferred laboratory\nor radiologist, we will pay Non-"
+        },
+        {
+          "n": 7,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 150,
+          "quote": "If your physician: Does not participate with Medicare and is not in our Preferred network\nThen you are responsible for:\nStandard Option - your deductibles, coinsurance, copayments, and any balance up to 115% of the Medicare-approved\namount.\n"
+        },
+        {
+          "n": 8,
+          "documentName": "2026 FEHB Blue Cross Blue Shield Service Benefit Plan Brochure (RI 71-005)",
+          "page": 150,
+          "quote": "Basic Option - all charges.\n"
+        }
+      ],
+      "score": {
+        "factsMet": true,
+        "missedFacts": [],
+        "citationHit": true,
+        "abstained": false,
+        "correct": true
+      },
+      "error": null,
+      "attempts": 1,
+      "firstTextMs": 847.8392999999996,
+      "totalMs": 4999.557799999999,
+      "inputTokens": 9731,
+      "outputTokens": 601,
+      "costUsd": 0.050944,
+      "servedModel": "claude-opus-5-5",
+      "stopReason": "end_turn"
+    }
+  ]
+}

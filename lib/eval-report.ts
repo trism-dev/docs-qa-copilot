@@ -12,6 +12,7 @@ export type QuestionResult = {
   document: string | null;
   goldPages: number[];
   retrieved: { documentName: string; page: number; chunkId: number; score: number }[];
+  factsInContext: boolean | null; // answerable only: every required fact appears in the text of the retrieved chunks
   firstGoldRank: number | null; // 1-based rank of the first retrieved chunk on a gold page; null if none (or unanswerable)
   answer: string | null; // null in retrieval-only runs
   citations: { n: number; documentName: string; page: number; quote: string }[];
@@ -37,6 +38,7 @@ export type Aggregate = {
   abstentionAccuracy: number | null; // unanswerable questions answered correctly (abstained, no citations)
   recallAtK: number | null; // answerable questions with a gold page among the retrieved chunks
   recallAt8: number | null; // the same, using only the first 8 chunks
+  contextFactRecall: number | null; // answerable questions whose required facts all appear in the retrieved text (stricter than a gold page)
   mrr: number | null; // mean reciprocal rank of the first gold-page chunk (0 when none), answerable only
   byCategory: Record<string, { n: number; correct: number | null; accuracy: number | null }>;
   p50Ms: number | null;
@@ -100,6 +102,7 @@ export function aggregate(rs: QuestionResult[], retrievalOnly: boolean): Aggrega
     abstentionAccuracy: retrievalOnly ? null : ratio(correct(unanswerable), unanswerable.length),
     recallAtK: ratio(ranked(answerable, Infinity), answerable.length),
     recallAt8: ratio(ranked(answerable, 8), answerable.length),
+    contextFactRecall: ratio(answerable.filter((r) => r.factsInContext).length, answerable.length),
     mrr: ratio(answerable.reduce((s, r) => s + (r.firstGoldRank ? 1 / r.firstGoldRank : 0), 0), answerable.length),
     byCategory: cats,
     p50Ms: percentile(times, 50),

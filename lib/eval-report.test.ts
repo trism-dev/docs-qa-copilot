@@ -13,6 +13,7 @@ function r(over: Partial<QuestionResult>): QuestionResult {
     document: "D",
     goldPages: [1],
     retrieved: [],
+    factsInContext: false,
     firstGoldRank: null,
     answer: "",
     citations: [],
