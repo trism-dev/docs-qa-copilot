@@ -12,6 +12,7 @@
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
     "migrate": "node --env-file-if-exists=.env.local scripts/migrate.ts",
+    "eval": "node --env-file-if-exists=.env.local scripts/eval.ts",
     "ingest:corpus": "node --env-file-if-exists=.env.local scripts/ingest-corpus.ts",
     "test": "node --test \"lib/**/*.test.ts\" \"scripts/**/*.test.ts\""
   },

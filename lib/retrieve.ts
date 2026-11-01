@@ -11,11 +11,13 @@ export type RetrievedChunk = {
   score: number; // cosine similarity, 1 = identical
 };
 
+export const K = 8;
+
 export async function retrieve(
   query: string,
   opts: { owner?: string | null; documentIds?: string[]; k?: number },
 ): Promise<RetrievedChunk[]> {
-  const k = opts.k ?? 8;
+  const k = opts.k ?? K;
   // Embed before taking a connection: embedding is the slow step.
   const vector = toSql(await embedQuery(query));
 
