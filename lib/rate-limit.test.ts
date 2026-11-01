@@ -40,7 +40,8 @@ test("a new window starts a fresh count", { skip }, async () => {
 
 test("parallel calls never allow more than the limit", { skip }, async () => {
   const key = `${PREFIX}:parallel`;
-  const results = await Promise.all(Array.from({ length: 20 }, () => consume(key, 5, WINDOW)));
+  const now = Math.floor(Date.now() / WINDOW) * WINDOW + 10_000;
+  const results = await Promise.all(Array.from({ length: 20 }, () => consume(key, 5, WINDOW, now)));
   assert.equal(results.filter((r) => r.allowed).length, 5);
 });
 

@@ -20,7 +20,7 @@ export async function consume(key: string, limit: number, windowMs: number, now 
   return { allowed: rows[0].count <= limit, retryAfterSeconds: Math.max(1, Math.ceil((start + windowMs - now) / 1000)) };
 }
 
-// Vercel sets x-forwarded-for itself, so its first entry is the real client. Anywhere else it can be spoofed.
+// On Vercel this header is overwritten, not forwarded from outside, so its first entry is the real client (https://vercel.com/docs/headers/request-headers); on any other host it is spoofable.
 export function clientIp(req: Request): string {
   return req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
 }
