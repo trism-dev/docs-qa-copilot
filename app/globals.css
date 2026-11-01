@@ -7,6 +7,7 @@
   --muted: #645d50;
   --rule: #cdc4b0;
   --accent: #8a2b1c;
+  --ok: #2d6a3e;
   --mark: color-mix(in srgb, var(--accent) 13%, var(--paper));
   --serif: var(--font-serif), "Iowan Old Style", Georgia, serif;
   --sans: var(--font-sans), system-ui, sans-serif;
@@ -21,6 +22,7 @@
     --muted: #a69e8c;
     --rule: #3a352b;
     --accent: #e8826c;
+    --ok: #86c997;
   }
 }
 
@@ -581,4 +583,202 @@ blockquote {
 
 main:focus {
   outline: none;
+}
+
+/* Evaluation page */
+.ev {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+.ev section {
+  margin-top: 2.75rem;
+  max-width: 48rem;
+}
+.ev .lede {
+  margin-bottom: 1rem;
+}
+.ev-warn {
+  border-left: 4px solid var(--accent);
+  background: var(--panel);
+  padding: 0.75rem 1rem;
+  max-width: 48rem;
+}
+.ev-big {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 1.5rem;
+  margin: 0 0 1rem;
+}
+.ev-big dt {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ev-big dd {
+  margin: 0;
+}
+.ev-big dd:not(.ev-count) {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 13vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.ev-count {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.ev-note {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.85em;
+}
+.ev-scroll {
+  overflow-x: auto;
+}
+.ev-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+.ev-table th,
+.ev-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.6rem 0.55rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ev-table thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--ink);
+}
+.ev-table tbody th {
+  font-weight: 500;
+}
+.ev-metric {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ev-metric dt {
+  flex: 0 0 15rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.ev-metric dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.ev-facts {
+  margin: 0;
+}
+.ev-prose p {
+  margin: 0 0 1em;
+}
+
+/* One question: failures are open, outlined and marked in words, so they are as easy to find as passes. */
+.ev-q {
+  border-bottom: 1px solid var(--rule);
+  border-left: 4px solid transparent;
+  padding: 0 0 0 0.75rem;
+}
+.ev-q.ev-fail {
+  border-left-color: var(--accent);
+}
+.ev-q.ev-pass {
+  border-left-color: var(--ok);
+}
+.ev-q summary {
+  cursor: pointer;
+  padding: 0.75rem 0;
+  min-height: 2.75rem;
+}
+.ev-badge {
+  display: inline-block;
+  min-width: 3.4rem;
+  text-align: center;
+  margin-right: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+}
+.ev-pass .ev-badge {
+  color: var(--ok);
+}
+.ev-fail .ev-badge {
+  color: var(--paper);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.ev-qtext {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  overflow-wrap: anywhere;
+}
+.ev-qmeta {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.ev-detail {
+  margin: 0 0 1rem;
+  padding-top: 0.25rem;
+}
+.ev-detail dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
+.ev-detail dd {
+  margin: 0.2rem 0 0;
+  overflow-wrap: anywhere;
+}
+.ev-answer {
+  white-space: pre-wrap;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+}
+.ev-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.ev-list li {
+  margin-bottom: 0.5rem;
+}
+.ev-list blockquote {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  white-space: pre-line;
+}
+.ev-doc {
+  display: block;
+}
+.ev code {
+  font-size: 0.82rem;
+  background: var(--panel);
+  padding: 0.05rem 0.3rem;
+  border-radius: 2px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 30rem) {
+  .ev-metric dt {
+    flex-basis: 100%;
+  }
 }

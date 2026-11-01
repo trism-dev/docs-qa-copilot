@@ -12,6 +12,7 @@ function r(over: Partial<QuestionResult>): QuestionResult {
     category: "fact",
     document: "D",
     goldPages: [1],
+    reference: "",
     retrieved: [],
     factsInContext: false,
     firstGoldRank: null,

@@ -63,6 +63,7 @@ function base(q: Question, chunks: RetrievedChunk[]): QuestionResult {
     category: q.category,
     document: q.document,
     goldPages: q.gold_pages,
+    reference: q.reference,
     retrieved: chunks.map((c) => ({ documentName: c.documentName, page: c.page, chunkId: c.chunkId, score: c.score })),
     factsInContext: q.unanswerable ? null : missedFactsIn(q, chunks.map((c) => c.text).join(" ")).length === 0,
     firstGoldRank: goldIdx >= 0 ? goldIdx + 1 : null,

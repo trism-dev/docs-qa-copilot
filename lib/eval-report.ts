@@ -11,6 +11,7 @@ export type QuestionResult = {
   category: Category;
   document: string | null;
   goldPages: number[];
+  reference: string; // the set's short reference answer, shown on the page next to the system's answer
   retrieved: { documentName: string; page: number; chunkId: number; score: number }[];
   factsInContext: boolean | null; // answerable only: every required fact appears in the text of the retrieved chunks
   firstGoldRank: number | null; // 1-based rank of the first retrieved chunk on a gold page; null if none (or unanswerable)
