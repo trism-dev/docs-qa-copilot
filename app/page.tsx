@@ -116,7 +116,7 @@ export default function Home() {
 
   return (
     <div className="wrap layout">
-      <main id="main" className="main">
+      <main id="main" className="main" tabIndex={-1}>
         <h1>Ask your documents</h1>
         <p className="lede">Answers come only from the documents you choose, and each claim points to the page and passage it came from.</p>
 

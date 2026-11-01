@@ -4,6 +4,7 @@ export async function* readNdjson(body: ReadableStream<Uint8Array>): AsyncGenera
   const reader = body.getReader();
   const decoder = new TextDecoder();
   let tail = "";
+  let finished = false;
   try {
     for (;;) {
       const { value, done } = await reader.read();
@@ -14,7 +15,10 @@ export async function* readNdjson(body: ReadableStream<Uint8Array>): AsyncGenera
       if (done) break;
     }
     if (tail.trim()) yield JSON.parse(tail);
+    finished = true;
   } finally {
+    // Stopped early (bad line, or the caller quit): let go of the connection.
+    if (!finished) await reader.cancel().catch(() => {});
     reader.releaseLock();
   }
 }

@@ -94,7 +94,8 @@ export function splitSentences(text: string): string[] {
 let client: Anthropic | undefined;
 function getClient(): Anthropic {
   // Reads ANTHROPIC_API_KEY. Created on first use so importing this module never needs the key.
-  return (client ??= new Anthropic({ timeout: 100_000 }));
+  // timeout x (1 + maxRetries) stays under the route's 120 s maxDuration, so a stall ends in a clean error.
+  return (client ??= new Anthropic({ timeout: 55_000, maxRetries: 1 }));
 }
 
 function describeError(err: unknown): Extract<AnswerEvent, { type: "error" }> {

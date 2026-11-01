@@ -578,3 +578,7 @@ blockquote {
     font-size: 1.2rem;
   }
 }
+
+main:focus {
+  outline: none;
+}
