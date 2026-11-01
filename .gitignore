@@ -1,0 +1,23 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# dependencies and builds
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# corpus PDFs are fetched by script, not committed
+corpus/*.pdf
+
+# local model cache and test output
+.cache/
+models/
+test-results/
+playwright-report/
+
+.vercel/
+.DS_Store
