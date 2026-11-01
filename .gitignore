@@ -11,7 +11,7 @@ out/
 next-env.d.ts
 
 # corpus PDFs are fetched by script, not committed
-corpus/*.pdf
+corpus/*
 
 # local model cache and test output
 .cache/

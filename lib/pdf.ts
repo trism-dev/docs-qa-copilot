@@ -19,6 +19,8 @@ const clean = (s: string) => s.replaceAll(String.fromCharCode(0), "").trim();
 
 // Items closer than this in y (PDF points) share a line.
 const LINE_TOLERANCE = 3;
+// A gap wider than this (PDF points) between items on one line is a table cell boundary.
+const CELL_GAP = 12;
 
 export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page: number; text: string }[]> {
   if (buffer.length > MAX_BYTES) throw new PdfError("too_large", `PDF is larger than ${MAX_BYTES / 1024 / 1024} MB`);
@@ -45,7 +47,7 @@ export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page:
     for (let n = 1; n <= doc.numPages; n++) {
       const content = await (await doc.getPage(n)).getTextContent();
       const items = content.items.flatMap((it) =>
-        "str" in it && clean(it.str) ? [{ s: clean(it.str), x: it.transform[4], y: it.transform[5] }] : [],
+        "str" in it && clean(it.str) ? [{ s: clean(it.str), x: it.transform[4], y: it.transform[5], w: it.width }] : [],
       );
       // Top of page first (PDF y grows upward), then group into lines.
       items.sort((a, b) => b.y - a.y);
@@ -55,7 +57,13 @@ export async function extractPages(buffer: Buffer | Uint8Array): Promise<{ page:
         if (line && Math.abs(line[0].y - it.y) <= LINE_TOLERANCE) line.push(it);
         else lines.push([it]);
       }
-      const text = lines.map((l) => l.sort((a, b) => a.x - b.x).map((i) => i.s).join(" ")).join("\n");
+      // A wide horizontal gap is a table cell boundary: mark it so columns do not run together.
+      const joinLine = (l: typeof items) =>
+        l
+          .sort((a, b) => a.x - b.x)
+          .map((it, i) => (i === 0 ? "" : it.x - (l[i - 1].x + l[i - 1].w) > CELL_GAP ? " | " : " ") + it.s)
+          .join("");
+      const text = lines.map(joinLine).join("\n");
       pages.push({ page: n, text });
     }
     if (!pages.some((p) => p.text.length > 0)) {
