@@ -93,4 +93,4 @@ Dev scored 90% here, after 100% and 95% on the same code earlier: that spread is
 
 Two dev failures in the same run: q25 (retrieval miss at chunk level, as in the tuning log) and q42 (the same table problem as q21).
 
-Over the whole set, three of the four failures come from tables whose columns are lost in extraction or from a chunk that retrieval did not return, which are the two things tuning did not fix. Held-out retrieval is weaker than dev: MRR 0.658 against 0.951 and recall@8 96.0%, with a first gold-page chunk at rank 3 or lower for several questions. The answers were mostly right despite that because the model was given 8 chunks and the right page was usually among them.
+Over the whole set, two of the four failures are the lost-table-columns problem and the other two are retrieval misses (a chunk, and a document, that was not returned). Tuning did not fix either kind. Held-out retrieval is weaker than dev: MRR 0.658 against 0.951 and recall@8 96.0%, with a first gold-page chunk at rank 3 or lower for several questions. The answers were mostly right despite that because the model was given 8 chunks and the right page was usually among them.
