@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS documents (
   expires_at timestamptz
 );
 
+-- Public documents link to their source PDF; uploads are not stored, so they have none.
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS source_url text;
+
 CREATE TABLE IF NOT EXISTS chunks (
   id bigserial PRIMARY KEY,
   document_id uuid NOT NULL REFERENCES documents ON DELETE CASCADE,

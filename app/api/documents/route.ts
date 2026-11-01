@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 export async function GET() {
   const owner = await getOwner();
   const { rows } = await getPool().query(
-    `SELECT id, name, pages, created_at, expires_at, owner IS NULL AS public
+    `SELECT id, name, pages, source_url, created_at, expires_at, owner IS NULL AS public
        FROM documents
       WHERE (owner IS NULL OR owner = $1) AND (expires_at IS NULL OR expires_at > now())
       ORDER BY created_at DESC`,
