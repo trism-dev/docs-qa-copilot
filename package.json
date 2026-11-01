@@ -16,6 +16,7 @@
     "test": "node --test \"lib/**/*.test.ts\" \"scripts/**/*.test.ts\""
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
     "@huggingface/transformers": "^4.3.2",
     "next": "^16.4.3",
     "pdfjs-dist": "^6.4.299",
