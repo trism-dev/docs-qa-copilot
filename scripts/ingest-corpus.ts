@@ -53,6 +53,8 @@ async function ingest(e: Entry): Promise<number> {
     const r = await ingestDocument({ name: e.name, owner: null, expiresAt: null, buffer });
     console.log(`${e.name}: ${r.pages} pages, ${r.chunks} chunks`);
   }
+  // Also covers rows ingested before source_url existed.
+  await pool.query("UPDATE documents SET source_url = $1 WHERE name = $2 AND owner IS NULL", [e.url, e.name]);
   return pages.length;
 }
 
