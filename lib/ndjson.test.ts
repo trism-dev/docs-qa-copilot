@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readNdjson } from "./ndjson.ts";
+import { readNdjson, StreamFormatError } from "./ndjson.ts";
 
 function bodyOf(chunks: Uint8Array[]): ReadableStream<Uint8Array> {
   return new ReadableStream({
@@ -36,4 +36,11 @@ test("keeps a multi-byte character split across reads intact", async () => {
 test("reads a final line with no trailing newline and skips blank lines", async () => {
   const got = await all(bodyOf([new TextEncoder().encode('{"a":1}\n\n{"b":2}')]));
   assert.deepEqual(got, [{ a: 1 }, { b: 2 }]);
+});
+
+test("a line that is not JSON raises a fixed message, never the parser's", async () => {
+  await assert.rejects(
+    all(bodyOf([new TextEncoder().encode(['{"a":1}', '{oops', ''].join(String.fromCharCode(10)))])),
+    (err: Error) => err instanceof StreamFormatError && !/JSON|token|position/i.test(err.message),
+  );
 });

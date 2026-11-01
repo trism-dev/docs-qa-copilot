@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AnswerBlock, Citation } from "../lib/answer.ts";
 import { parseAnswer, type Inline } from "../lib/markup.ts";
-import { readNdjson } from "../lib/ndjson.ts";
+import { readNdjson, StreamFormatError } from "../lib/ndjson.ts";
 import { Documents, type Doc } from "./documents.tsx";
 
 type Done = { blocks: AnswerBlock[]; citations: Citation[]; stopReason: string | null; notFound: boolean };
@@ -78,6 +78,7 @@ export default function Home() {
       let finished = false;
       for await (const ev of readNdjson(res.body) as AsyncGenerator<{ type: string; text?: string; message?: string } & Partial<Done>>) {
         if (ev.type === "text") setStreamed((s) => s + ev.text);
+        else if (ev.type === "reset") setStreamed("");
         else if (ev.type === "done") {
           finished = true;
           setResult({ blocks: ev.blocks!, citations: ev.citations!, stopReason: ev.stopReason ?? null, notFound: !!ev.notFound });
@@ -89,7 +90,10 @@ export default function Home() {
       if (!finished) throw new Error("The answer ended early. Try again.");
     } catch (e) {
       if (controller.signal.aborted) return;
-      setError(e instanceof TypeError ? "Could not reach the server. Try again." : e instanceof Error ? e.message : "Something went wrong.");
+      // Only messages we wrote ourselves or the server sent as plain errors: never a raw parser message.
+      setError(
+        e instanceof TypeError ? "Could not reach the server. Try again." : e instanceof SyntaxError ? new StreamFormatError().message : e instanceof Error ? e.message : "Something went wrong.",
+      );
       setPhase("error");
     }
   }

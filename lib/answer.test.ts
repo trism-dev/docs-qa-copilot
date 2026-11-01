@@ -1,6 +1,6 @@
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
-import { answerQuestion, mapCitations, MODEL, NOT_IN_DOCUMENTS_SENTENCE, splitSentences, type AnswerEvent, type ContentBlockLike } from "./answer.ts";
+import { answerQuestion, mapCitations, MODEL, NOT_IN_DOCUMENTS_SENTENCE, splitSentences, textEvents, type AnswerEvent, type StreamEventLike, type ContentBlockLike } from "./answer.ts";
 import { getPool } from "./db.ts";
 import type { RetrievedChunk } from "./retrieve.ts";
 
@@ -82,6 +82,39 @@ test("splitSentences splits at sentence ends and bullets and loses no characters
   assert.ok(parts.length >= 5);
   assert.equal(parts.join(""), text);
   assert.deepEqual(splitSentences("no punctuation here"), ["no punctuation here"]);
+});
+
+async function* events(list: StreamEventLike[]) {
+  for (const e of list) yield e;
+}
+
+test("textEvents turns a stream into text, and a fallback block start into a reset", async () => {
+  const delta = (text: string) => ({ type: "content_block_delta", delta: { type: "text_delta", text } });
+  const out = [];
+  for await (const e of textEvents(
+    events([
+      { type: "message_start" },
+      { type: "content_block_start", content_block: { type: "text" } },
+      delta("partial from the model that declined"),
+      { type: "content_block_delta", delta: { type: "citations_delta" } },
+      { type: "content_block_delta", delta: { type: "thinking_delta" } },
+      { type: "content_block_start", content_block: { type: "fallback" } },
+      { type: "content_block_start", content_block: { type: "text" } },
+      delta("The real "),
+      delta("answer."),
+      { type: "message_stop" },
+    ]),
+  )) out.push(e);
+  assert.deepEqual(out, [
+    { type: "text", text: "partial from the model that declined" },
+    { type: "reset" },
+    { type: "text", text: "The real " },
+    { type: "text", text: "answer." },
+  ]);
+  // What a client that clears on reset ends up showing.
+  let shown = "";
+  for (const e of out) shown = e.type === "reset" ? "" : shown + e.text;
+  assert.equal(shown, "The real answer.");
 });
 
 // The one test that spends money: it needs the key and the local database with the public corpus.

@@ -33,7 +33,10 @@ export async function POST(req: Request) {
   const parsed = parseAskBody(json);
   if ("error" in parsed) return fail(400, parsed.error);
 
-  const events = answerQuestion(parsed.question, { owner: await getOwner(), documentIds: parsed.documentIds });
+  // Aborted when the client goes away (the request signal) or stops reading (cancel below).
+  const abort = new AbortController();
+  req.signal.addEventListener("abort", () => abort.abort());
+  const events = answerQuestion(parsed.question, { owner: await getOwner(), documentIds: parsed.documentIds, signal: abort.signal });
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({
     async pull(controller) {
@@ -42,6 +45,7 @@ export async function POST(req: Request) {
       else controller.enqueue(encoder.encode(JSON.stringify(toClient(r.value)) + "\n"));
     },
     async cancel() {
+      abort.abort();
       await events.return(undefined);
     },
   });
