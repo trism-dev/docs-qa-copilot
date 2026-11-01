@@ -50,3 +50,16 @@ Made before any system run, after an audit of the first commit (questions, gold 
 - Regexes check required facts, not wrongness: an answer that contains the fact and also states something wrong still passes. Yes/no regexes (`q39`, `q46`, `q48`) are synonym lists and can still be fooled by a contrived answer.
 - q05: the Plan accepts a call from any of four parties (you, your representative, the physician, the hospital), so the regex only requires that a call or notification is stated. It cannot check who is named.
 - The extracted text interleaves table columns on many pages. Facts checked against the page image: q12 (PDF p.81), q21, q30, q35, q42 (p.80), q43 (p.168), q44 (p.96). Facts in other garbled tables (q03 p.41, q20 p.77, q22 p.105-106, q29 p.88) were confirmed from the clean summary pages (p.164-167) and the 2026 changes list (p.17-19), not from images.
+
+## How the harness scores (`lib/score.ts`, `scripts/eval.ts`)
+
+Implementation choices made before the first system run. They apply to every question and none was changed afterwards.
+
+- The answer text is the joined text of the answer blocks. Before matching, `**` bold markers are removed and runs of whitespace (including line breaks) become one space, so `**$350**` and a fact split across a line break still match. Patterns are compiled case-insensitive.
+- "The right document" means the citation's `documentName` equals the question's `document` exactly.
+- An answerable question is correct only if every fact matches, a citation is on a gold page of the right document, and the answer does not start with "Not found in these documents."
+- An unanswerable question is correct only if the answer (trimmed) starts with that sentence and there are no citations. The app already drops citations when it abstains, so this checks the app's output as a user sees it.
+- The harness calls the same `answerQuestion` the app uses, as a public user (`owner: null`), three questions at a time. An API error is retried (up to 3 attempts); a persistent failure is recorded as incorrect with the error noted, never dropped. Cost counts only the attempt that succeeded (a failed attempt reports no usage), at $4 per million input tokens and $20 per million output tokens.
+- Recall@k is the share of answerable questions with at least one retrieved chunk on a gold page of the right document (a hit rate, since gold pages are lists of every page that states a fact, not a set that all must be found). MRR is the mean of 1/rank of the first such chunk, 0 if none. "Facts in retrieved text" (diagnostic only, added during tuning) is the share of answerable questions whose required facts all appear in the text of the retrieved chunks.
+- `scripts/eval.ts` refuses `--split heldout` and `--split all` (retrieval-only included) unless `--final` is passed.
+- Results are written to `eval/results/`. `latest.json` is the one the `/eval` page shows. Tuning logs and the dev runs behind them are in `tuning.md` and the other files there.

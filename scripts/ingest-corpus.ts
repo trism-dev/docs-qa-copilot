@@ -13,6 +13,8 @@ const CORE: Entry[] = [
 ];
 const EXTRA: Entry = { url: `${OPM}/71-017.pdf`, file: "71-017.pdf", name: "2026 FEHB FEP Blue Focus Brochure (RI 71-017)" };
 const MIN_TOTAL_PAGES = 200;
+// --force re-ingests a document that is already there, so extraction or chunking changes can be tested.
+const FORCE = process.argv.includes("--force");
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 const dir = new URL("../corpus/", import.meta.url);
@@ -47,11 +49,16 @@ async function ingest(e: Entry): Promise<number> {
     "SELECT d.id, (SELECT count(*)::int FROM chunks WHERE document_id = d.id) AS chunks FROM documents d WHERE d.name = $1 AND d.owner IS NULL",
     [e.name],
   );
-  if (rows.length > 0) {
+  if (rows.length > 0 && !FORCE) {
     console.log(`${e.name}: already ingested, ${pages.length} pages, ${rows[0].chunks} chunks`);
   } else {
     const r = await ingestDocument({ name: e.name, owner: null, expiresAt: null, buffer });
     console.log(`${e.name}: ${r.pages} pages, ${r.chunks} chunks`);
+    // Delete the old copy only after the new one is in, so the corpus is never missing. Exact name, public only.
+    if (rows.length > 0) {
+      const del = await pool.query("DELETE FROM documents WHERE name = $1 AND owner IS NULL AND id <> $2", [e.name, r.id]);
+      console.log(`${e.name}: replaced ${del.rowCount} old copy (was ${rows[0].chunks} chunks)`);
+    }
   }
   // Also covers rows ingested before source_url existed.
   await pool.query("UPDATE documents SET source_url = $1 WHERE name = $2 AND owner IS NULL", [e.url, e.name]);

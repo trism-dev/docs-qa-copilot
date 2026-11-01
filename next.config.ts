@@ -17,7 +17,8 @@ const OTHER_PLATFORMS = [
 
 const config: NextConfig = {
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "pdfjs-dist", "sharp"],
-  outputFileTracingIncludes: { "/api/documents": ONNX, "/api/ask": ONNX },
+  // The /eval page reads the committed results file at run time, so make sure it ships with the build.
+  outputFileTracingIncludes: { "/api/documents": ONNX, "/api/ask": ONNX, "/eval": ["eval/results/latest.json"] },
   outputFileTracingExcludes: { "/api/documents": OTHER_PLATFORMS, "/api/ask": OTHER_PLATFORMS },
 };
 
