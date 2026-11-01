@@ -1,17 +1,19 @@
 import { cookies } from "next/headers";
 
 const NAME = "owner";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+// Only a UUID counts as an owner: anything else is treated as no cookie.
 export async function getOwner(): Promise<string | null> {
-  return (await cookies()).get(NAME)?.value || null;
+  const value = (await cookies()).get(NAME)?.value;
+  return value && UUID.test(value) ? value : null;
 }
 
 export async function getOrCreateOwner(): Promise<string> {
-  const jar = await cookies();
-  const existing = jar.get(NAME)?.value;
+  const existing = await getOwner();
   if (existing) return existing;
   const id = crypto.randomUUID();
-  jar.set(NAME, id, {
+  (await cookies()).set(NAME, id, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
