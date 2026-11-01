@@ -6,6 +6,8 @@ const ONNX = [
   "node_modules/onnxruntime-node/package.json",
   "node_modules/onnxruntime-node/dist/**",
   "node_modules/onnxruntime-node/bin/napi-v6/linux/x64/**",
+  // The tracer misses this: transformers loads onnxruntime-node via createRequire, which then requires it.
+  "node_modules/onnxruntime-common/**",
 ];
 // Keep other platforms' native binaries out of the function bundle.
 const OTHER_PLATFORMS = [
