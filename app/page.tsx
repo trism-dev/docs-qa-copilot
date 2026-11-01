@@ -4,7 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { AnswerBlock, Citation } from "../lib/answer.ts";
 import { parseAnswer, type Inline } from "../lib/markup.ts";
 import { readNdjson, StreamFormatError } from "../lib/ndjson.ts";
+import { API_KEY_HEADER } from "../lib/api-key.ts";
+import { KeyPanel, useApiKey } from "./api-key.tsx";
 import { Documents, type Doc } from "./documents.tsx";
+
+// The server refused the visitor's key: Anthropic rejected it, or it was missing or malformed.
+class KeyError extends Error {}
 
 type Done = { blocks: AnswerBlock[]; citations: Citation[]; stopReason: string | null; notFound: boolean };
 type Phase = "idle" | "streaming" | "done" | "error";
@@ -28,6 +33,16 @@ export default function Home() {
   const [active, setActive] = useState<number | null>(null);
   const [scopeOpen, setScopeOpen] = useState(true);
   const abort = useRef<AbortController | null>(null);
+  const { key, loaded, setKey } = useApiKey();
+  const [keyMessage, setKeyMessage] = useState<string | null>(null);
+  const keyInput = useRef<HTMLInputElement>(null);
+
+  // Focus runs in an effect, after the commit that shows the input: the input is not there while a key is set.
+  const [keyFocusRequests, setKeyFocusRequests] = useState(0);
+  const focusKeyInput = () => setKeyFocusRequests((n) => n + 1);
+  useEffect(() => {
+    if (keyFocusRequests > 0) keyInput.current?.focus();
+  }, [keyFocusRequests]);
 
   const loadDocs = useCallback(async (select?: string) => {
     setLoadError(null);
@@ -54,6 +69,11 @@ export default function Home() {
     const q = text.trim();
     if (!q || busy || selected.size === 0) return;
     setQuestion(q);
+    if (!key) {
+      setKeyMessage("Add your Anthropic API key to ask a question.");
+      focusKeyInput();
+      return;
+    }
     setAsked(q);
     setScopeOpen(false); // get the list out of the way of the answer
     setPhase("streaming");
@@ -67,16 +87,17 @@ export default function Home() {
       const everything = docs !== null && docs.every((d) => selected.has(d.id));
       const res = await fetch("/api/ask", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", [API_KEY_HEADER]: key },
         body: JSON.stringify({ question: q, documentIds: everything ? undefined : [...selected] }),
         signal: controller.signal,
       });
       if (!res.ok || !res.body) {
         const json = await res.json().catch(() => null);
-        throw new Error(json?.error ?? `The request failed (${res.status}).`);
+        const message = json?.error ?? `The request failed (${res.status}).`;
+        throw res.status === 401 ? new KeyError(message) : new Error(message);
       }
       let finished = false;
-      for await (const ev of readNdjson(res.body) as AsyncGenerator<{ type: string; text?: string; message?: string } & Partial<Done>>) {
+      for await (const ev of readNdjson(res.body) as AsyncGenerator<{ type: string; code?: string; text?: string; message?: string } & Partial<Done>>) {
         if (ev.type === "text") setStreamed((s) => s + ev.text);
         else if (ev.type === "reset") setStreamed("");
         else if (ev.type === "done") {
@@ -84,12 +105,20 @@ export default function Home() {
           setResult({ blocks: ev.blocks!, citations: ev.citations!, stopReason: ev.stopReason ?? null, notFound: !!ev.notFound });
           setPhase("done");
         } else if (ev.type === "error") {
-          throw new Error(ev.message);
+          throw ev.code === "invalid_key" ? new KeyError(ev.message) : new Error(ev.message);
         }
       }
       if (!finished) throw new Error("The answer ended early. Try again.");
     } catch (e) {
       if (controller.signal.aborted) return;
+      if (e instanceof KeyError) {
+        // Forget the key that was refused and ask for another.
+        setKey("");
+        setKeyMessage(e.message);
+        setPhase("idle");
+        focusKeyInput();
+        return;
+      }
       // Only messages we wrote ourselves or the server sent as plain errors: never a raw parser message.
       setError(
         e instanceof TypeError ? "Could not reach the server. Try again." : e instanceof SyntaxError ? new StreamFormatError().message : e instanceof Error ? e.message : "Something went wrong.",
@@ -123,6 +152,24 @@ export default function Home() {
       <main id="main" className="main" tabIndex={-1}>
         <h1>Ask your documents</h1>
         <p className="lede">Answers come only from the documents you choose, and each claim points to the page and passage it came from.</p>
+
+        {loaded && (
+          <KeyPanel
+            apiKey={key}
+            message={keyMessage}
+            inputRef={keyInput}
+            onSave={(k) => {
+              setKey(k);
+              setKeyMessage(null);
+              setTimeout(() => document.getElementById("question")?.focus(), 0);
+            }}
+            onRemove={() => {
+              setKey("");
+              setKeyMessage(null);
+              focusKeyInput();
+            }}
+          />
+        )}
 
         <form
           className="ask"

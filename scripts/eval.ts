@@ -97,7 +97,7 @@ async function runFull(q: Question): Promise<QuestionResult> {
     const t0 = performance.now();
     let firstTextMs: number | null = null;
     error = "no result";
-    for await (const ev of answerQuestion(q.question, { owner: null })) {
+    for await (const ev of answerQuestion(q.question, { apiKey: process.env.ANTHROPIC_API_KEY ?? "", owner: null })) {
       if (ev.type === "text") firstTextMs ??= performance.now() - t0;
       else if (ev.type === "error") error = `${ev.code}: ${ev.message}`;
       else if (ev.type === "done") {

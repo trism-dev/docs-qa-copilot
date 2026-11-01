@@ -2,9 +2,9 @@
 
 Ask questions about policy and benefits PDFs and get answers with page-level citations. An evaluation page scores the answers and shows every failure.
 
-**Live demo:** not deployed yet. The production database connection is the remaining blocker ([#8](https://github.com/trism-dev/docs-qa-copilot/issues/8)).
+**Live demo:** [docs-qa-copilot.vercel.app](https://docs-qa-copilot.vercel.app). Asking a question needs your own [Anthropic API key](https://console.anthropic.com/settings/keys), billed to your account at about $0.03 a question. The site holds no key of its own. Browsing the documents and the [evaluation page](https://docs-qa-copilot.vercel.app/eval) needs no key.
 
-**Demo GIF:** not recorded yet, because it needs live model calls ([#8](https://github.com/trism-dev/docs-qa-copilot/issues/8)).
+![Asking a question on the live site, following a citation to its source, then opening the evaluation page](docs/demo.gif)
 
 ## Results
 
@@ -36,7 +36,7 @@ Per-question results are in [`eval/results/latest.json`](eval/results/latest.jso
 - **Local embeddings.** `bge-small-en-v1.5` runs in the Node process through ONNX, with no API key or per-call cost. The tradeoff is about 57 MB of function bundle and a model download on cold start.
 - **Postgres does everything.** pgvector for search, plus rate limits and expiry in ordinary tables, with raw SQL and no ORM.
 - **The eval uses the app's code path.** The harness calls the same `answerQuestion` function as the API, and the scorer is deterministic, so runs are cheap and reproducible apart from the model's own variation.
-- **Built for a public demo.** Uploads are private to an anonymous cookie, hidden after 24 hours and deleted within a day after that. Per-IP limits and a global daily cap bound the API spend. Document text is treated as untrusted data.
+- **Built for a public demo.** Uploads are private to an anonymous cookie, hidden after 24 hours and deleted within a day after that. Each visitor asks with their own Anthropic API key, kept in their browser tab and sent with each question, so the deployed app has no model bill; a per-IP limit protects the database. Document text is treated as untrusted data.
 
 **Known weakness:** multi-column tables lose their columns on extraction. This caused two of the four failures. Scanned PDFs are rejected, since there's no OCR.
 
@@ -46,7 +46,7 @@ TypeScript, Next.js and React, Node API routes, PostgreSQL with pgvector, `bge-s
 
 ## Run it locally
 
-Needs Node 24, Docker and an Anthropic API key.
+Needs Node 24, Docker and an Anthropic API key. You paste the key into the page; `ANTHROPIC_API_KEY` in `.env.local` is only read by `npm run eval` and the real-answer test, never by the app.
 
 ```bash
 npm ci
@@ -78,6 +78,6 @@ npm run eval -- --split dev
 
 ## Deploy
 
-1. Set `DATABASE_URL`, `ANTHROPIC_API_KEY` and `CRON_SECRET` on the Vercel project, for production only.
+1. Set `DATABASE_URL` and `CRON_SECRET` on the Vercel project, for production only. Do not set `ANTHROPIC_API_KEY`: the app never reads it.
 2. Run `npm run migrate` and `npm run ingest:corpus` against the production database, which needs pgvector 0.8 or later.
 3. Deploy. `vercel.json` sets the framework and the daily purge.
