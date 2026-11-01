@@ -37,10 +37,16 @@ An answer to an answerable question is correct if every fact in `must_include` m
 
 ## Corrections after freeze
 
-None.
+Made before any system run, after an audit of the first commit (questions, gold pages and split unchanged):
+
+- Regex guards across the set: every dollar amount now has a trailing guard so it cannot match inside a longer number (`$35` no longer matches `$350` or `$3,500`; amounts with cents are guarded too), and numbers, percentages and "N months/days/weeks/years" have a leading guard (`7-month` no longer matches `27 months`). Reason: false passes on look-alike numbers.
+- q27: added a required process fact (CVS Caremark, order form, enclose or send the prescription, or the physician calling it in) beside the "two weeks" fact. Reason: the timing alone passed an answer with no process.
+- q05: added a required fact that someone must phone, call or notify the Plan, beside the "two business days" fact. Reason: the timing alone passed an answer that never says to call.
+- q39, q42, q46, q48: tightened broad synonym lists. q39 dropped the bare `no` (it passed "No problem, you can enroll"). q42 now needs C and F as Medigap plans, so "Part C" no longer counts. q46 needs both "no need or no penalty" and a reason (creditable, or keep FEHB coverage), and no longer accepts "creditable" alone. q48 dropped the bare `exception` and now needs a statement that the plan does not pay or cover, or that you must use Preferred providers.
 
 ## Known limits
 
 - Answers use 2026 amounts printed in the books. Several Medicare figures (for example the Part A deductible) may be answerable from a model's memory, so the citation requirement is what ties a pass to the retrieved text.
-- Regexes check required facts, not wrongness: an answer that contains the fact and also states something wrong still passes. A few yes/no regexes (`q39`, `q46`, `q48`) are deliberately broad synonym lists.
+- Regexes check required facts, not wrongness: an answer that contains the fact and also states something wrong still passes. Yes/no regexes (`q39`, `q46`, `q48`) are synonym lists and can still be fooled by a contrived answer.
+- q05: the Plan accepts a call from any of four parties (you, your representative, the physician, the hospital), so the regex only requires that a call or notification is stated. It cannot check who is named.
 - The extracted text interleaves table columns on many pages. Facts checked against the page image: q12 (PDF p.81), q21, q30, q35, q42 (p.80), q43 (p.168), q44 (p.96). Facts in other garbled tables (q03 p.41, q20 p.77, q22 p.105-106, q29 p.88) were confirmed from the clean summary pages (p.164-167) and the 2026 changes list (p.17-19), not from images.
