@@ -2,9 +2,9 @@
 
 Ask questions about policy and benefits PDFs and get answers with page-level citations. An evaluation page scores the answers and shows every failure.
 
-**Live demo:** not deployed yet. The production database connection is the remaining blocker ([#8](https://github.com/trism-dev/docs-qa-copilot/issues/8)).
+**Live demo:** [docs-qa-copilot.vercel.app](https://docs-qa-copilot.vercel.app). Asking a question needs your own [Anthropic API key](https://console.anthropic.com/settings/keys), billed to your account at about $0.03 a question. The site holds no key of its own. Browsing the documents and the [evaluation page](https://docs-qa-copilot.vercel.app/eval) needs no key.
 
-**Demo GIF:** not recorded yet, because it needs live model calls ([#8](https://github.com/trism-dev/docs-qa-copilot/issues/8)).
+![Asking a question on the live site, following a citation to its source, then opening the evaluation page](docs/demo.gif)
 
 ## Results
 
