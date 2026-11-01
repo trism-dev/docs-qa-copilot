@@ -9,6 +9,8 @@ const ONNX = [
   // The tracer misses this: transformers loads onnxruntime-node via createRequire, which then requires it.
   "node_modules/onnxruntime-common/**",
 ];
+// pdf.js loads its worker module by path at run time (the "fake worker" in Node), which the tracer cannot see.
+const PDFJS = ["node_modules/pdfjs-dist/legacy/build/**", "node_modules/pdfjs-dist/package.json"];
 // Keep other platforms' native binaries out of the function bundle.
 const OTHER_PLATFORMS = [
   "node_modules/onnxruntime-node/bin/napi-v6/win32/**",
@@ -35,7 +37,7 @@ const config: NextConfig = {
   },
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "pdfjs-dist", "sharp"],
   // The /eval page reads the committed results file at run time, so make sure it ships with the build.
-  outputFileTracingIncludes: { "/api/documents": ONNX, "/api/ask": ONNX, "/eval": ["eval/results/latest.json"] },
+  outputFileTracingIncludes: { "/api/documents": [...ONNX, ...PDFJS], "/api/ask": ONNX, "/eval": ["eval/results/latest.json"] },
   outputFileTracingExcludes: { "/api/documents": OTHER_PLATFORMS, "/api/ask": OTHER_PLATFORMS },
 };
 
